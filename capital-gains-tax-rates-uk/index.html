@@ -249,6 +249,33 @@
   </ol>
 
   
+  <h2>How this calculator works — Formulas &amp; Method</h2>
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:28px 28px 20px;margin:0 0 40px;">
+    <p style="color:#64748b;font-size:0.82rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600;">Source: gov.uk/capital-gains-tax/rates · Deterministic calculation — no AI, no arbitrary estimation</p>
+    <h3>Constants used</h3>
+    <table><tr><th>Constant</th><th>Value</th><th>Source</th></tr>
+      
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic rate</td><td>18%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>CGT higher/additional rate</td><td>24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+    </table>
+    <h3>Formulas</h3>
+    <div style="background:#1e3a5f;color:#e2e8f0;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.83rem;line-height:2;">
+      
+      <span style="color:#86efac;">— Taxable gain —</span><br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">at_18pct</span> = min(taxable_gain, basic_band_remaining)<br>
+      <span style="color:#7dd3fc;">at_24pct</span> = taxable_gain − at_18pct<br>
+      <span style="color:#7dd3fc;">cgt</span> = at_18pct × 18% + at_24pct × 24%<br>
+      <span style="color:#7dd3fc;">effective_rate</span> = cgt / taxable_gain
+    </div>
+    <p style="font-size:0.78rem;color:#94a3b8;margin:10px 0 0;">Deterministic calculation based on official 2026/27 bands. Rates apply equally to property and other chargeable assets since the October 2024 Budget alignment; always confirm your own position with HMRC or a qualified adviser.</p>
+  </div>
+
+  
 <div class="cta-box">
   <h2>Get Independent Financial Advice</h2>
   <p>This figure is an estimate — deciding how it fits into your wider finances is a bigger decision worth getting right.</p>

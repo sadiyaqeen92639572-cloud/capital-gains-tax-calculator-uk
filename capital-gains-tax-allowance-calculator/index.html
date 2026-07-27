@@ -239,6 +239,27 @@
   <p>The allowance doesn't carry forward — if you don't use it in a tax year, it's lost.</p>
 
   
+  <h2>How this calculator works — Formulas &amp; Method</h2>
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:28px 28px 20px;margin:0 0 40px;">
+    <p style="color:#64748b;font-size:0.82rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600;">Source: gov.uk/capital-gains-tax/rates · Deterministic calculation — no AI, no arbitrary estimation</p>
+    <h3>Constants used</h3>
+    <table><tr><th>Constant</th><th>Value</th><th>Source</th></tr>
+      
+      <tr><td>Annual exempt amount (2026/27)</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>Annual exempt amount (2023/24)</td><td>£6,000</td><td>gov.uk/capital-gains-tax/rates (historical)</td></tr>
+      <tr><td>Annual exempt amount (2022/23)</td><td>£12,300</td><td>gov.uk/capital-gains-tax/rates (historical)</td></tr>
+    </table>
+    <h3>Formulas</h3>
+    <div style="background:#1e3a5f;color:#e2e8f0;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.83rem;line-height:2;">
+      
+      <span style="color:#86efac;">— Allowance applied —</span><br>
+      <span style="color:#7dd3fc;">allowance_used</span> = min(total_gain, £3,000)<br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, total_gain − £3,000)
+    </div>
+    <p style="font-size:0.78rem;color:#94a3b8;margin:10px 0 0;">Deterministic calculation. The allowance is a single amount per person per tax year across all gains combined, not one per asset — see the Combined CGT Calculator if you have multiple asset types.</p>
+  </div>
+
+  
 <div class="cta-box">
   <h2>Get Independent Financial Advice</h2>
   <p>This figure is an estimate — deciding how it fits into your wider finances is a bigger decision worth getting right.</p>

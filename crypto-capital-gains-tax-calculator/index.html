@@ -245,6 +245,33 @@
   <p>Unlike UK residential property, crypto gains don't have a 60-day reporting rule — they're declared through your normal Self Assessment tax return, due by 31 January following the end of the tax year (or via HMRC's real-time CGT service if you prefer to pay sooner).</p>
 
   
+  <h2>How this calculator works — Formulas &amp; Method</h2>
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:28px 28px 20px;margin:0 0 40px;">
+    <p style="color:#64748b;font-size:0.82rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600;">Source: gov.uk/capital-gains-tax/rates, gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets · Deterministic calculation — no AI, no arbitrary estimation</p>
+    <h3>Constants used</h3>
+    <table><tr><th>Constant</th><th>Value</th><th>Source</th></tr>
+      
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>Taxable disposal events</td><td>Sell, swap, spend, gift (excl. spouse/charity)</td><td>gov.uk crypto assets guidance</td></tr>
+      <tr><td>Reporting deadline</td><td>31 January via Self Assessment (no 60-day rule)</td><td>gov.uk crypto assets guidance</td></tr>
+    </table>
+    <h3>Formulas</h3>
+    <div style="background:#1e3a5f;color:#e2e8f0;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.83rem;line-height:2;">
+      
+      <span style="color:#86efac;">— Taxable gain (across all disposals/swaps) —</span><br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, total_gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">at_18pct</span> = min(taxable_gain, basic_band_remaining)<br>
+      <span style="color:#7dd3fc;">at_24pct</span> = taxable_gain − at_18pct<br>
+      <span style="color:#7dd3fc;">cgt</span> = at_18pct × 18% + at_24pct × 24%
+    </div>
+    <p style="font-size:0.78rem;color:#94a3b8;margin:10px 0 0;">Deterministic calculation based on official 2026/27 bands. Assumes you've already correctly identified each disposal/swap event and its GBP value at the time; always confirm your own position with HMRC or a qualified adviser.</p>
+  </div>
+
+  
 <div class="cta-box">
   <h2>Get It Filed Correctly, Not Just Estimated</h2>
   <p>This calculator gives an estimate — actually reporting and paying it correctly is a separate step with its own deadline and paperwork.</p>

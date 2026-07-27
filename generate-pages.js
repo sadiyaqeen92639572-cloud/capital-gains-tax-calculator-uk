@@ -220,6 +220,23 @@ function eeatSection(pageTitle, avatarInitials) {
   </div>`;
 }
 
+function formulaSection({ source, constantsRows, formulaLines, note }) {
+  return `
+  <h2>How this calculator works — Formulas &amp; Method</h2>
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:28px 28px 20px;margin:0 0 40px;">
+    <p style="color:#64748b;font-size:0.82rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600;">${source}</p>
+    <h3>Constants used</h3>
+    <table><tr><th>Constant</th><th>Value</th><th>Source</th></tr>
+      ${constantsRows}
+    </table>
+    <h3>Formulas</h3>
+    <div style="background:#1e3a5f;color:#e2e8f0;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.83rem;line-height:2;">
+      ${formulaLines}
+    </div>
+    <p style="font-size:0.78rem;color:#94a3b8;margin:10px 0 0;">${note}</p>
+  </div>`;
+}
+
 function faqHtml(faqs) {
   return `<div class="faq"><h2>Frequently Asked Questions</h2>` +
     faqs.map(f => `<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">${f.q}</div><div class="faq-a">${f.a}</div></div>`).join('\n') +
@@ -230,7 +247,7 @@ function faqJsonLd(faqs) {
   return faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a.replace(/<[^>]+>/g, '') } }));
 }
 
-function pageShell({ slug, title, metaTitle, metaDesc, h1, intro, toolHtml, toolJs, extraContent, faqs, ctaSnippet, avatarInitials }) {
+function pageShell({ slug, title, metaTitle, metaDesc, h1, intro, toolHtml, toolJs, extraContent, formulaBox, faqs, ctaSnippet, avatarInitials }) {
   const canonical = `${SITE_URL}/${slug}/`;
   const gscMeta = GSC_TAG ? `<meta name="google-site-verification" content="${GSC_TAG}" />` : `<!-- GSC verification tag: pending, see generate-pages.js GSC_TAG comment -->`;
   return `<!DOCTYPE html>
@@ -282,6 +299,8 @@ ${toolHtml}
   <div class="sat-grid">${satGridHtml(slug)}</div>
 
   ${extraContent}
+
+  ${formulaBox}
 
   ${ctaSnippet}
 
@@ -433,6 +452,27 @@ function calculate(){
   <tr><td>4</td><td>Tax any remaining BADR-qualifying gain at a flat 18%</td></tr>
   </table></div>
   <p>This is a simplified model of that ordering — it doesn't cover carried interest, Investors' Relief, or gains eligible for multiple different reliefs at once. For anything beyond a straightforward mix of property/shares/crypto/business gains, confirm the exact ordering with an accountant.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/rates, HS284 Shares and Capital Gains Tax (allowance/band ordering) · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000 (single, shared across all disposals)</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income (single, shared)</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>BADR rate</td><td>18%, £1m lifetime limit</td><td>gov.uk/business-asset-disposal-relief</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Aggregate across all disposals —</span><br>
+      <span style="color:#7dd3fc;">gains_nonbadr</span> = sum of all non-BADR disposal gains/losses, floored at 0<br>
+      <span style="color:#7dd3fc;">gains_badr</span> = sum of all BADR-qualifying disposal gains, floored at 0<br><br>
+      <span style="color:#86efac;">— Allocate ONE shared £3,000 allowance —</span><br>
+      <span style="color:#7dd3fc;">exempt_nonbadr</span> = min(£3,000, gains_nonbadr) <span style="color:#94a3b8;">(applied first — saves more tax)</span><br>
+      <span style="color:#7dd3fc;">exempt_badr</span> = min(£3,000 − exempt_nonbadr, gains_badr)<br><br>
+      <span style="color:#86efac;">— Allocate ONE shared basic-rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">at_18pct</span> = min(gains_nonbadr − exempt_nonbadr, basic_band_remaining)<br>
+      <span style="color:#7dd3fc;">at_24pct</span> = (gains_nonbadr − exempt_nonbadr) − at_18pct<br>
+      <span style="color:#7dd3fc;">cgt</span> = at_18pct × 18% + at_24pct × 24% + (gains_badr − exempt_badr) × 18%`,
+    note: 'Deterministic calculation based on official 2026/27 bands. Simplified model of HMRC\'s "most beneficial" ordering rule — doesn\'t cover carried interest, Investors\' Relief, or losses carried forward from prior years; always confirm your own position with HMRC or a qualified adviser.'
+  }),
   faqs: [
     { q: 'Do I get a separate £3,000 CGT allowance for each type of asset I sell?', a: 'No — the £3,000 annual exempt amount is a single allowance per person, per tax year, shared across all your chargeable gains combined (property, shares, crypto, other assets). Using a separate calculator for each asset type and adding the results will overstate your true allowance.' },
     { q: 'I sold a rental property and some shares in the same tax year — how is my CGT worked out?', a: 'HMRC combines both gains, deducts the single £3,000 allowance (applied where it saves the most tax), then taxes the remainder at 18% within your remaining basic rate Income Tax band and 24% above it — both gains together, not as two separate calculations.' },
@@ -489,6 +529,23 @@ function calculate(){
   <tr><td>Inherited property you didn't live in</td><td>Yes</td></tr>
   </table></div>
   <p>Missing the deadline triggers automatic late-filing penalties and interest, even if you eventually pay the correct amount via Self Assessment later.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/rates, gov.uk/report-and-pay-your-capital-gains-tax · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>Property reporting deadline</td><td>60 days from completion</td><td>gov.uk/report-and-pay-your-capital-gains-tax (disposals on/after 27 Oct 2021)</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Taxable gain —</span><br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">at_18pct</span> = min(taxable_gain, basic_band_remaining)<br>
+      <span style="color:#7dd3fc;">at_24pct</span> = taxable_gain − at_18pct<br>
+      <span style="color:#7dd3fc;">cgt</span> = at_18pct × 18% + at_24pct × 24%`,
+    note: 'Deterministic calculation based on official 2026/27 bands. Doesn\'t account for Private Residence Relief apportionment on partial-letting scenarios; always confirm your own position with HMRC or a qualified adviser.'
+  }),
   faqs: [
     { q: 'How is Capital Gains Tax on property calculated?', a: 'Your gain (sale price minus purchase price, buying/selling costs and qualifying improvements) has the £3,000 annual exempt amount deducted, then the remainder is taxed at 18% within your remaining basic rate band and 24% above it.' },
     { q: 'What is the 60-day CGT property deadline?', a: 'You must report and pay any CGT due on a UK residential property disposal within 60 days of the completion date, using HMRC\'s CGT on UK property account — this applies to disposals completed on or after 27 October 2021.' },
@@ -546,6 +603,22 @@ function calculate(){
   <tr><td>Section 104 pool</td><td>Remaining shares of the same type are pooled and averaged</td></tr>
   </table></div>
   <p>This calculator deliberately doesn't attempt that matching — it's built for a simple "I sold once, what do I owe" estimate. Multi-trade portfolios need a dedicated tool or an accountant.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/rates · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Taxable gain —</span><br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">at_18pct</span> = min(taxable_gain, basic_band_remaining)<br>
+      <span style="color:#7dd3fc;">at_24pct</span> = taxable_gain − at_18pct<br>
+      <span style="color:#7dd3fc;">cgt</span> = at_18pct × 18% + at_24pct × 24%`,
+    note: 'Deterministic calculation for a single disposal. Doesn\'t apply HMRC\'s same-day/30-day/Section 104 share-matching rules for multiple trades of the same holding; always confirm your own position with HMRC or a qualified adviser.'
+  }),
   faqs: [
     { q: 'How is Capital Gains Tax on shares calculated?', a: 'Your gain (sale proceeds minus purchase cost and dealing fees) has the £3,000 annual exempt amount deducted, then the remainder is taxed at 18% within your remaining basic rate band and 24% above it — the same rates as other chargeable assets.' },
     { q: 'Does this calculator handle multiple share trades?', a: 'No — it\'s scoped to a single disposal estimate. If you bought and sold the same share multiple times at different prices, HMRC\'s same-day, 30-day and Section 104 pooling rules apply, which this simple tool doesn\'t model. Use a dedicated multi-trade matching tool or an accountant for that.' },
@@ -604,6 +677,24 @@ function calculate(){
   <p>This means a portfolio that never touched a bank account can still generate a CGT bill from token-to-token swaps alone — a common source of underpayment when people assume only cashing out to GBP counts.</p>
   <h3>Reporting crypto gains</h3>
   <p>Unlike UK residential property, crypto gains don't have a 60-day reporting rule — they're declared through your normal Self Assessment tax return, due by 31 January following the end of the tax year (or via HMRC's real-time CGT service if you prefer to pay sooner).</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/rates, gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>Taxable disposal events</td><td>Sell, swap, spend, gift (excl. spouse/charity)</td><td>gov.uk crypto assets guidance</td></tr>
+      <tr><td>Reporting deadline</td><td>31 January via Self Assessment (no 60-day rule)</td><td>gov.uk crypto assets guidance</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Taxable gain (across all disposals/swaps) —</span><br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, total_gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">at_18pct</span> = min(taxable_gain, basic_band_remaining)<br>
+      <span style="color:#7dd3fc;">at_24pct</span> = taxable_gain − at_18pct<br>
+      <span style="color:#7dd3fc;">cgt</span> = at_18pct × 18% + at_24pct × 24%`,
+    note: 'Deterministic calculation based on official 2026/27 bands. Assumes you\'ve already correctly identified each disposal/swap event and its GBP value at the time; always confirm your own position with HMRC or a qualified adviser.'
+  }),
   faqs: [
     { q: 'Do I pay tax when I sell cryptocurrency?', a: 'Yes — if your total gains from disposing of cryptoassets in a tax year exceed the £3,000 annual exempt amount, Capital Gains Tax is due at 18% or 24% depending on your income.' },
     { q: 'Does swapping one crypto for another count as a taxable event?', a: 'Yes — HMRC treats exchanging one cryptoasset for a different one as a disposal, the same as selling for GBP, even if you never move funds to a bank account.' },
@@ -655,6 +746,18 @@ function calculate(){
   </table></div>
   <p><strong>Married couples and civil partners</strong> each get their own £3,000 allowance — transferring an asset to a spouse before sale (a tax-free transfer between spouses) can effectively double the tax-free amount available on a joint disposal.</p>
   <p>The allowance doesn't carry forward — if you don't use it in a tax year, it's lost.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/rates · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount (2026/27)</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>Annual exempt amount (2023/24)</td><td>£6,000</td><td>gov.uk/capital-gains-tax/rates (historical)</td></tr>
+      <tr><td>Annual exempt amount (2022/23)</td><td>£12,300</td><td>gov.uk/capital-gains-tax/rates (historical)</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Allowance applied —</span><br>
+      <span style="color:#7dd3fc;">allowance_used</span> = min(total_gain, £3,000)<br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, total_gain − £3,000)`,
+    note: 'Deterministic calculation. The allowance is a single amount per person per tax year across all gains combined, not one per asset — see the Combined CGT Calculator if you have multiple asset types.'
+  }),
   faqs: [
     { q: 'What is the Capital Gains Tax allowance for 2026/27?', a: 'The annual exempt amount is £3,000 per person for the 2026/27 tax year.' },
     { q: 'Does the CGT allowance apply per asset or per person?', a: 'Per person, across all your gains combined in a tax year — property, shares, crypto and other assets all share the same single £3,000 allowance, not a separate allowance each.' },
@@ -711,6 +814,22 @@ function calculate(){
   <h3>5. Business Asset Disposal Relief</h3>
   <p>Qualifying business disposals (e.g. selling your own trading company) can be taxed at 18% instead of the standard rates, up to a £1 million lifetime limit — strict conditions apply on ownership period and shareholding.</p>
   <p><strong>Important:</strong> these are legitimate reliefs and allowances built into the tax system — not avoidance schemes. Eligibility rules are specific; always confirm your position with HMRC guidance or a qualified adviser before relying on one.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/rates, gov.uk/business-asset-disposal-relief · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000 (per person, per tax year)</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>ISA annual allowance</td><td>£20,000</td><td>gov.uk/individual-savings-accounts</td></tr>
+      <tr><td>BADR rate</td><td>18%, £1m lifetime limit</td><td>gov.uk/business-asset-disposal-relief</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Taxable gain —</span><br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Spousal split example —</span><br>
+      <span style="color:#7dd3fc;">combined_allowance</span> = £3,000 × 2 <span style="color:#94a3b8;">(if asset transferred/co-owned before sale)</span><br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">cgt</span> = min(taxable_gain, basic_band_remaining) × 18% + rest × 24%`,
+    note: 'Deterministic calculation. Reliefs shown are the standard, published mechanisms — eligibility depends on your specific circumstances; always confirm with HMRC or a qualified adviser.'
+  }),
   faqs: [
     { q: 'What is the easiest way to reduce Capital Gains Tax?', a: 'Holding investments inside a Stocks & Shares ISA or pension is the simplest approach — gains inside those wrappers are never subject to CGT at all.' },
     { q: 'Can I use my spouse\'s CGT allowance?', a: 'Not directly, but transfers of assets between spouses or civil partners are tax-free, so you can split ownership before a sale to use both people\'s £3,000 annual exempt amount on the same disposal.' },
@@ -773,6 +892,24 @@ function calculate(){
     <li>Add the remaining taxable gain to your other taxable income for the year to see which rate band it falls into.</li>
     <li>Apply 18% to the portion within your remaining basic rate band, and 24% to the rest.</li>
   </ol>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/rates · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic rate</td><td>18%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>CGT higher/additional rate</td><td>24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Taxable gain —</span><br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">at_18pct</span> = min(taxable_gain, basic_band_remaining)<br>
+      <span style="color:#7dd3fc;">at_24pct</span> = taxable_gain − at_18pct<br>
+      <span style="color:#7dd3fc;">cgt</span> = at_18pct × 18% + at_24pct × 24%<br>
+      <span style="color:#7dd3fc;">effective_rate</span> = cgt / taxable_gain`,
+    note: 'Deterministic calculation based on official 2026/27 bands. Rates apply equally to property and other chargeable assets since the October 2024 Budget alignment; always confirm your own position with HMRC or a qualified adviser.'
+  }),
   faqs: [
     { q: 'How much is Capital Gains Tax in the UK?', a: '18% on gains within your remaining basic rate Income Tax band, and 24% on gains above it or if you\'re already a higher/additional rate taxpayer — for the 2026/27 tax year, after the £3,000 annual exempt amount.' },
     { q: 'How do I work out Capital Gains Tax?', a: 'Subtract allowable costs from your sale price to get the gain, deduct the £3,000 annual exempt amount, then apply 18% to the portion within your remaining basic rate band and 24% to the rest, based on your total taxable income for the year.' },

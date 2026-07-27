@@ -245,6 +245,36 @@
   <p>This is a simplified model of that ordering — it doesn't cover carried interest, Investors' Relief, or gains eligible for multiple different reliefs at once. For anything beyond a straightforward mix of property/shares/crypto/business gains, confirm the exact ordering with an accountant.</p>
 
   
+  <h2>How this calculator works — Formulas &amp; Method</h2>
+  <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:28px 28px 20px;margin:0 0 40px;">
+    <p style="color:#64748b;font-size:0.82rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600;">Source: gov.uk/capital-gains-tax/rates, HS284 Shares and Capital Gains Tax (allowance/band ordering) · Deterministic calculation — no AI, no arbitrary estimation</p>
+    <h3>Constants used</h3>
+    <table><tr><th>Constant</th><th>Value</th><th>Source</th></tr>
+      
+      <tr><td>Annual exempt amount</td><td>£3,000 (single, shared across all disposals)</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income (single, shared)</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>BADR rate</td><td>18%, £1m lifetime limit</td><td>gov.uk/business-asset-disposal-relief</td></tr>
+    </table>
+    <h3>Formulas</h3>
+    <div style="background:#1e3a5f;color:#e2e8f0;border-radius:8px;padding:18px 20px;font-family:'Courier New',monospace;font-size:0.83rem;line-height:2;">
+      
+      <span style="color:#86efac;">— Aggregate across all disposals —</span><br>
+      <span style="color:#7dd3fc;">gains_nonbadr</span> = sum of all non-BADR disposal gains/losses, floored at 0<br>
+      <span style="color:#7dd3fc;">gains_badr</span> = sum of all BADR-qualifying disposal gains, floored at 0<br><br>
+      <span style="color:#86efac;">— Allocate ONE shared £3,000 allowance —</span><br>
+      <span style="color:#7dd3fc;">exempt_nonbadr</span> = min(£3,000, gains_nonbadr) <span style="color:#94a3b8;">(applied first — saves more tax)</span><br>
+      <span style="color:#7dd3fc;">exempt_badr</span> = min(£3,000 − exempt_nonbadr, gains_badr)<br><br>
+      <span style="color:#86efac;">— Allocate ONE shared basic-rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">at_18pct</span> = min(gains_nonbadr − exempt_nonbadr, basic_band_remaining)<br>
+      <span style="color:#7dd3fc;">at_24pct</span> = (gains_nonbadr − exempt_nonbadr) − at_18pct<br>
+      <span style="color:#7dd3fc;">cgt</span> = at_18pct × 18% + at_24pct × 24% + (gains_badr − exempt_badr) × 18%
+    </div>
+    <p style="font-size:0.78rem;color:#94a3b8;margin:10px 0 0;">Deterministic calculation based on official 2026/27 bands. Simplified model of HMRC's "most beneficial" ordering rule — doesn't cover carried interest, Investors' Relief, or losses carried forward from prior years; always confirm your own position with HMRC or a qualified adviser.</p>
+  </div>
+
+  
 <div class="cta-box">
   <h2>Get It Filed Correctly, Not Just Estimated</h2>
   <p>This calculator gives an estimate — actually reporting and paying it correctly is a separate step with its own deadline and paperwork.</p>
