@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital Gains Tax Allowance Calculator UK 2026/27 — £3,000 Exempt Amount</title>
+<meta name="description" content="Free CGT allowance calculator. See how much of your £3,000 annual exempt amount is used and what remains taxable.">
+<link rel="canonical" href="https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta property="og:title" content="Capital Gains Tax Allowance Calculator UK 2026/27 — £3,000 Exempt Amount">
+<meta property="og:description" content="Free CGT allowance calculator. See how much of your £3,000 annual exempt amount is used and what remains taxable.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/">
+<meta property="og:image" content="https://mycgttax.co.uk/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mycgttax.co.uk/og-image.svg">
+<!-- GSC verification tag: pending, see generate-pages.js GSC_TAG comment -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Capital Gains Tax Allowance Calculator",
+      "url": "https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/",
+      "description": "Free CGT allowance calculator. See how much of your £3,000 annual exempt amount is used and what remains taxable.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "en-GB",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United Kingdom"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the Capital Gains Tax allowance for 2026/27?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The annual exempt amount is £3,000 per person for the 2026/27 tax year."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the CGT allowance apply per asset or per person?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Per person, across all your gains combined in a tax year — property, shares, crypto and other assets all share the same single £3,000 allowance, not a separate allowance each."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I carry forward an unused CGT allowance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No — the annual exempt amount doesn't carry forward to future tax years. If you don't use it, it's lost at the end of the tax year on 5 April."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do my spouse and I get separate allowances?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — each spouse or civil partner has their own £3,000 annual exempt amount. Transfers of assets between spouses are tax-free, so splitting a disposal between you can use both allowances."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://mycgttax.co.uk/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Capital Gains Tax Allowance Calculator",
+          "item": "https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --brand: #0f766e; --brand-dark: #0b5c56; --brand-light: #e6f6f4;
+    --accent: #b91c1c; --success: #16a34a; --success-light: #dcfce7;
+    --text: #1a1a2e; --muted: #64748b; --border: #e2e8f0; --radius: 12px;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); background: #f8fafc; line-height: 1.6; }
+  header { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); color: white; padding: 48px 20px 80px; text-align: center; }
+  header p { color: rgba(255,255,255,0.88); font-size: 1.05rem; margin-top: 10px; max-width: 640px; margin-left: auto; margin-right: auto; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.5px; }
+  .flag { font-size: 0.85rem; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 4px 14px; display: inline-block; margin-bottom: 16px; letter-spacing: 1px; }
+  .tool-card { background: white; border-radius: var(--radius); box-shadow: 0 4px 32px rgba(0,0,0,0.10); margin: -48px auto 40px; max-width: 720px; padding: 36px 32px; position: relative; z-index: 10; }
+  .input-group { margin-bottom: 20px; }
+  .input-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; color: var(--text); }
+  .input-group .hint { font-size: 0.78rem; color: var(--muted); margin-bottom: 8px; }
+  input[type="number"], select { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 1rem; background: white; }
+  input[type="number"]:focus, select:focus { outline: none; border-color: var(--brand); }
+  .seg-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .seg-btn { flex: 1; min-width: 100px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; background: white; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-align: center; color: var(--text); }
+  .seg-btn.active { background: var(--brand); color: white; border-color: var(--brand); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 500px) { .two-col { grid-template-columns: 1fr; } }
+  .checkbox-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .checkbox-row input { width: auto; }
+  .checkbox-row label { font-size: 0.85rem; color: var(--text); font-weight: 600; margin-bottom: 0; }
+  .results { background: var(--brand-light); border-radius: var(--radius); padding: 24px; margin-top: 24px; display: none; }
+  .results.show { display: block; }
+  .result-hero { text-align: center; padding: 12px 0 20px; }
+  .result-hero .value { font-size: 2.2rem; font-weight: 800; color: var(--brand); }
+  .result-hero .label { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .results-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  @media (max-width: 500px) { .results-grid { grid-template-columns: 1fr 1fr; } }
+  .result-box { background: white; border-radius: 8px; padding: 12px 10px; text-align: center; }
+  .result-box .label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+  .result-box .value { font-size: 1.05rem; font-weight: 700; color: var(--brand); }
+  .result-box.accent .value { color: var(--accent); }
+  .band-breakdown { background: white; border-radius: 8px; padding: 14px 16px; margin-top: 12px; font-size: 0.85rem; }
+  .band-breakdown div { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .band-breakdown div:last-child { border-bottom: none; font-weight: 700; }
+  .callout { background: #fff7ed; border: 1.5px solid #fdba74; border-radius: 8px; padding: 12px 14px; margin-top: 14px; font-size: 0.85rem; color: #7c2d12; }
+  .btn { background: var(--brand); color: white; border: none; border-radius: 8px; padding: 14px 28px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 8px; transition: background 0.2s; }
+  .btn:hover { background: var(--brand-dark); }
+  .content { max-width: 760px; margin: 0 auto; padding: 0 20px 60px; }
+  h2 { font-size: 1.4rem; font-weight: 700; margin: 40px 0 14px; }
+  h3 { font-size: 1.1rem; font-weight: 600; margin: 24px 0 10px; }
+  p { color: #374151; margin-bottom: 14px; font-size: 0.95rem; }
+  ul { padding-left: 20px; margin-bottom: 14px; }
+  li { color: #374151; font-size: 0.95rem; margin-bottom: 6px; }
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--brand); color: white; padding: 10px 12px; text-align: left; white-space: nowrap; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .sat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 40px; }
+  @media (max-width: 500px) { .sat-grid { grid-template-columns: 1fr; } }
+  .sat-link { display: block; background: white; border: 1.5px solid var(--border); border-radius: 10px; padding: 16px 18px; text-decoration: none; color: var(--text); transition: border-color .15s; }
+  .sat-link:hover { border-color: var(--brand); }
+  .sat-link .t { font-weight: 700; font-size: 0.95rem; margin-bottom: 3px; }
+  .sat-link .d { font-size: 0.8rem; color: var(--muted); }
+  .cta-box { background: #111827; color: white; border-radius: var(--radius); padding: 36px 32px; margin: 40px 0; }
+  .cta-box h2 { color: white; margin-top: 0; font-size: 1.35rem; }
+  .cta-box p { color: rgba(255,255,255,0.88); }
+  .cta-box li { color: rgba(255,255,255,0.82) !important; }
+  .cta-box ul { color: white; }
+  .cta-btn { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 1rem; margin-top: 20px; transition: opacity 0.2s; }
+  .cta-btn:hover { opacity: 0.88; }
+  .faq { margin: 40px 0; }
+  .faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 16px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; background: white; }
+  .faq-q:hover { background: var(--brand-light); }
+  .faq-q::after { content: '+'; font-size: 1.2rem; color: var(--brand); flex-shrink: 0; }
+  .faq-q.open::after { content: '−'; }
+  .faq-a { display: none; padding: 0 20px 16px; font-size: 0.9rem; color: #374151; background: white; }
+  .faq-a.show { display: block; }
+  footer { background: var(--brand-dark); color: rgba(255,255,255,0.6); text-align: center; padding: 28px 20px; font-size: 0.8rem; }
+  footer p { color: #9ca3af; }
+  footer a { color: rgba(255,255,255,0.7); }
+  @media (max-width: 600px) { .tool-card { margin: -32px 12px 32px; padding: 24px 18px; } }
+  .eeat-section { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin: 32px 0; }
+  .eeat-title { font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid var(--brand-light); padding-bottom: 12px; }
+  .eeat-title svg { color: var(--brand); flex-shrink: 0; }
+  .eeat-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; }
+  @media (max-width: 640px) { .eeat-grid { grid-template-columns: 1fr; gap: 20px; } }
+  .eeat-author-card { display: flex; gap: 14px; align-items: flex-start; }
+  .eeat-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--brand); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1.1rem; flex-shrink: 0; }
+  .eeat-author-info h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .eeat-author-subtitle { font-size: 0.76rem; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+  .eeat-author-info p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+  .eeat-compliance { display: flex; flex-direction: column; gap: 14px; }
+  .eeat-compliance-item { display: flex; gap: 10px; align-items: flex-start; }
+  .eeat-compliance-icon { color: var(--brand); flex-shrink: 0; margin-top: 3px; }
+  .eeat-compliance-text h4 { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .eeat-compliance-text p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 0; }
+  .eeat-compliance-text a { color: var(--brand); text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="flag">🇬🇧 UK Capital Gains Tax · 2026/27 Rates</div>
+  <h1>Capital Gains Tax Allowance Calculator</h1>
+  <p>See exactly how the £3,000 annual exempt amount applies to your gain.</p>
+</header>
+
+<div class="tool-card">
+
+  <div class="input-group"><label>Total Gains This Tax Year (£)</label><div class="hint">Add up all gains across property, shares, crypto etc.</div><input type="number" id="gain" min="0" step="250" value="4500"></div>
+  <button class="btn" onclick="calculate()">Check My Allowance →</button>
+  <div class="results" id="results">
+    <div class="result-hero"><div class="value" id="r-taxable">—</div><div class="label">Taxable Gain (After Allowance)</div></div>
+    <div class="band-breakdown">
+      <div><span>Total gains</span><span id="r-gain">—</span></div>
+      <div><span>Annual exempt amount available</span><span>£3,000</span></div>
+      <div><span>Allowance used</span><span id="r-used">—</span></div>
+      <div><span>Remaining taxable</span><span id="r-taxable2">—</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <h2>Explore More Capital Gains Tax Calculators</h2>
+  <div class="sat-grid"><a class="sat-link" href="/"><div class="t">Capital Gains Tax Calculator</div><div class="d">Main CGT calculator, all asset types</div></a>
+<a class="sat-link" href="/property-capital-gains-tax-calculator/"><div class="t">Property CGT Calculator</div><div class="d">60-day HMRC deadline, buy-to-let</div></a>
+<a class="sat-link" href="/shares-capital-gains-tax-calculator/"><div class="t">Shares CGT Calculator</div><div class="d">Single-disposal quick estimate</div></a>
+<a class="sat-link" href="/crypto-capital-gains-tax-calculator/"><div class="t">Crypto CGT Calculator</div><div class="d">Disposals, swaps, Self Assessment</div></a>
+<a class="sat-link" href="/how-to-avoid-capital-gains-tax-uk/"><div class="t">How to Reduce CGT Legally</div><div class="d">ISA, spousal transfer, timing</div></a>
+<a class="sat-link" href="/capital-gains-tax-rates-uk/"><div class="t">CGT Rates & Percentage</div><div class="d">Full 2026/27 rate reference</div></a></div>
+
+  
+  <h2>The CGT Annual Exempt Amount 2026/27</h2>
+  <p>Every individual gets a £3,000 tax-free Capital Gains Tax allowance each tax year (6 April to 5 April) — down significantly from £12,300 in 2022/23, via £6,000 in 2023/24. It applies once per person, across <strong>all</strong> your gains combined (property, shares, crypto, other assets), not once per asset type.</p>
+  <div class="table-wrap"><table><tr><th>Tax Year</th><th>Annual Exempt Amount</th></tr>
+  <tr><td>2022/23</td><td>£12,300</td></tr>
+  <tr><td>2023/24</td><td>£6,000</td></tr>
+  <tr><td>2024/25 onwards</td><td>£3,000</td></tr>
+  </table></div>
+  <p><strong>Married couples and civil partners</strong> each get their own £3,000 allowance — transferring an asset to a spouse before sale (a tax-free transfer between spouses) can effectively double the tax-free amount available on a joint disposal.</p>
+  <p>The allowance doesn't carry forward — if you don't use it in a tax year, it's lost.</p>
+
+  
+<div class="cta-box">
+  <h2>Get Independent Financial Advice</h2>
+  <p>This figure is an estimate — deciding how it fits into your wider finances is a bigger decision worth getting right.</p>
+  <ul>
+    <li><strong>Gain close to £3,000:</strong> small timing changes (selling part this tax year, part next) can keep you under the allowance in both years.</li>
+    <li><strong>Multiple allowances to use:</strong> spouses/civil partners each get their own £3,000 CGT allowance — transferring assets between you before disposal can double what's tax-free.</li>
+    <li><strong>Large one-off gain:</strong> understand how it interacts with your Income Tax band and other allowances for the year.</li>
+  </ul>
+  <p>An FCA-regulated independent financial adviser can model your specific numbers — free directories like Unbiased.co.uk match you with a local IFA.</p>
+  <a href="#" class="cta-btn" target="_blank" rel="noopener">Find an Independent Financial Adviser →</a>
+</div>
+
+  
+  <div class="eeat-section">
+    <h2 class="eeat-title">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+      Transparency &amp; Methodology
+    </h2>
+    <div class="eeat-grid">
+      <div class="eeat-author-card">
+        <div class="eeat-avatar">AL</div>
+        <div class="eeat-author-info">
+          <h3>Capital Gains Tax Allowance Calculator</h3>
+          <div class="eeat-author-subtitle">Independent, Open-Source Estimator</div>
+          <p>An independent calculator applying published HMRC CGT rates deterministically — no AI estimate, no official affiliation.</p>
+        </div>
+      </div>
+      <div class="eeat-compliance">
+        <div class="eeat-compliance-item">
+          <svg class="eeat-compliance-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+          <div class="eeat-compliance-text"><h4>Methodology &amp; Sources</h4><p>Figures are public HMRC rates. For your exact position, use <a href="https://www.gov.uk/capital-gains-tax" target="_blank" rel="noopener">gov.uk/capital-gains-tax</a>.</p></div>
+        </div>
+        <div class="eeat-compliance-item">
+          <svg class="eeat-compliance-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <div class="eeat-compliance-text"><h4>Not Tax or Legal Advice</h4><p>Information only. Consult the <a href="https://www.tax.org.uk/" target="_blank" rel="noopener">Chartered Institute of Taxation</a> or an adviser via the <a href="https://register.fca.org.uk/" target="_blank" rel="noopener">FCA Register</a>.</p></div>
+        </div>
+        <div class="eeat-compliance-item">
+          <svg class="eeat-compliance-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+          <div class="eeat-compliance-text"><h4>Open Source</h4><p>Formulas are public. Inspect on <a href="https://github.com/sadiyaqeen92639572-cloud/capital-gains-tax-calculator-uk" target="_blank" rel="noopener">GitHub</a>.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq"><h2>Frequently Asked Questions</h2><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the Capital Gains Tax allowance for 2026/27?</div><div class="faq-a">The annual exempt amount is £3,000 per person for the 2026/27 tax year.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does the CGT allowance apply per asset or per person?</div><div class="faq-a">Per person, across all your gains combined in a tax year — property, shares, crypto and other assets all share the same single £3,000 allowance, not a separate allowance each.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I carry forward an unused CGT allowance?</div><div class="faq-a">No — the annual exempt amount doesn't carry forward to future tax years. If you don't use it, it's lost at the end of the tax year on 5 April.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do my spouse and I get separate allowances?</div><div class="faq-a">Yes — each spouse or civil partner has their own £3,000 annual exempt amount. Transfers of assets between spouses are tax-free, so splitting a disposal between you can use both allowances.</div></div></div>
+</div>
+
+<footer>
+  <p>Information only — not tax or legal advice. Data based on 2026/27 rates.<br>
+  Always verify at <a href="https://www.gov.uk/capital-gains-tax" target="_blank" rel="noopener">gov.uk/capital-gains-tax</a>.</p>
+</footer>
+
+<script>
+function fmt(n) { return '£' + Math.round(n).toLocaleString('en-GB'); }
+function toggleFaq(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('show'); }
+const EXEMPT = 3000, BASIC_LIMIT = 50270;
+function cgtOnGain(gain, income, badr) {
+  const taxableGain = Math.max(0, gain - EXEMPT);
+  if (badr) return { taxableGain, atBasic: taxableGain, atHigher: 0, total: taxableGain * 0.18 };
+  const basicBandRemaining = Math.max(0, BASIC_LIMIT - income);
+  const atBasic = Math.min(taxableGain, basicBandRemaining);
+  const atHigher = taxableGain - atBasic;
+  return { taxableGain, atBasic, atHigher, total: atBasic * 0.18 + atHigher * 0.24 };
+}
+
+function calculate(){
+  const gain=parseFloat(document.getElementById('gain').value)||0;
+  const used=Math.min(gain,EXEMPT);
+  const taxable=Math.max(0,gain-EXEMPT);
+  document.getElementById('r-taxable').textContent=fmt(taxable);
+  document.getElementById('r-gain').textContent=fmt(gain);
+  document.getElementById('r-used').textContent=fmt(used);
+  document.getElementById('r-taxable2').textContent=fmt(taxable);
+  document.getElementById('results').classList.add('show');
+}
+</script>
+
+</body>
+</html>
