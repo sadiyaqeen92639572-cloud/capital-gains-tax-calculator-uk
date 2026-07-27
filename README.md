@@ -9,9 +9,10 @@ CGT estimate, including the £3,000 annual exempt amount.
 ## Features
 
 - Universal calculator (property/shares/crypto/other, BADR toggle) — homepage
-- 6 satellites: property (60-day deadline), shares (single-disposal scope,
-  deliberately not competing on multi-trade matching), crypto (disposal/swap
-  rules), allowance, how-to-reduce-CGT, rates/percentage reference hub
+- 7 satellites: **combined multi-asset calculator (flagship — see below)**,
+  property (60-day deadline), shares (single-disposal scope, deliberately
+  not competing on multi-trade matching), crypto (disposal/swap rules),
+  allowance, how-to-reduce-CGT, rates/percentage reference hub
 - Every page links back to the pillar calculator and out to all satellites
   (bidirectional `.sat-grid`)
 - 3 CTA snippet families, mapped by topic cluster: accountant/CGT-return
@@ -31,11 +32,27 @@ This niche has real incumbents, unlike some other sites in this portfolio:
 on major financial sites (Aviva, Hargreaves Lansdown, J.P. Morgan). Several
 of those (`cgtcalc.co.uk` in particular) already implement full multi-trade
 share-matching (same-day/30-day/Section 104) with broker-statement import —
-this site deliberately does not attempt to compete on that ground. Instead:
+this site deliberately does not attempt to compete on that ground.
 
-- The property/crypto/allowance/rates cluster leans on the UK's 60-day CGT
-  property reporting deadline as a differentiation/freshness hook the
-  generic calculators don't lead with.
+**Primary differentiator — the combined multi-asset calculator**: no
+competitor found (including the exact-match domains) models the £3,000
+annual exempt amount as genuinely shared across disposal types in the same
+tax year. Every one of them calculates property, shares and crypto in
+silos. Someone who sold a second home *and* shares in the same tax year
+gets a wrong (understated) total from siloed tools — they'd effectively get
+the £3,000 allowance and the £50,270 basic-rate band applied twice. The
+`combined-capital-gains-tax-calculator/` satellite aggregates multiple
+disposals across asset types and allocates the single allowance/band the
+way HMRC actually assesses a Self Assessment CGT summary. This is a
+genuine capability gap, not a cosmetic hook — verified by testing naive
+silo-sum vs combined calculation on the same inputs (see git history for
+the worked example). It's linked prominently from the pillar page and
+featured first in every satellite's nav grid.
+
+**Secondary differentiators**:
+- The property/crypto/allowance/rates cluster also leans on the UK's
+  60-day CGT property reporting deadline as a freshness hook the generic
+  calculators don't lead with.
 - The shares satellite is intentionally scoped to a single-disposal
   estimate, with an explicit on-page callout pointing multi-trade users to
   dedicated tools — this captures the cluster's 2nd-highest CPC keyword

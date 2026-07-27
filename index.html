@@ -203,6 +203,7 @@
     </div>
     <div class="callout" id="propertyCallout"><strong>Property sold?</strong> If this wasn't your main home (or full Private Residence Relief doesn't apply), you must report and pay this CGT within <strong>60 days of completion</strong> via HMRC's CGT on UK property account — not through your normal Self Assessment deadline.</div>
     <div class="callout" id="cryptoCallout"><strong>Crypto disposal?</strong> Selling, swapping for another cryptoasset, or spending crypto all count as taxable disposals under HMRC rules. This is normally declared via Self Assessment, due 31 January — not the 60-day property deadline.</div>
+    <div class="callout" style="margin-top:14px;border-color:#0f766e;background:#e6f6f4;color:#0b5c56;"><strong>Sold more than one type of asset this tax year?</strong> Your £3,000 allowance is a single shared amount, not one per asset type — using separate calculators for each and adding the results will overstate your allowance. Use the <a href="/combined-capital-gains-tax-calculator/" style="color:#0b5c56;font-weight:700;">Combined CGT Calculator →</a> instead.</div>
   </div>
 </div>
 
@@ -222,6 +223,9 @@
   <tr><td>Business Asset Disposal Relief (qualifying, up to £1m lifetime)</td><td>18%</td></tr>
   </table></div>
   <p><strong>Selling your main home?</strong> Private Residence Relief usually exempts your only or main home from CGT entirely — this calculator is for second homes, buy-to-let, shares, crypto and other chargeable assets.</p>
+
+  <h2>Sold Property AND Shares (or Crypto) This Tax Year?</h2>
+  <p>Every CGT calculator checked when building this site — including dedicated property, shares and crypto tools — calculates each asset type in isolation. That's a real gap: the £3,000 annual exempt amount is <strong>a single allowance per person, per tax year</strong>, shared across every disposal, not one per asset type. Running a property sale through one calculator and a share sale through another double-counts the allowance (and the basic rate band) and understates what you actually owe. Use the <a href="/combined-capital-gains-tax-calculator/" style="color:#0f766e;font-weight:700;">Combined CGT Calculator</a> if you disposed of more than one type of asset this tax year.</p>
 
   <h2>How this calculator works — Formulas &amp; Method</h2>
   <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:28px 28px 20px;margin:0 0 40px;">
@@ -354,6 +358,7 @@ function calculate() {
 }
 
 const SATELLITES_NAV = [
+  { slug: 'combined-capital-gains-tax-calculator', title: 'Combined CGT Calculator', desc: 'Multiple asset types, one £3,000 allowance' },
   { slug: 'property-capital-gains-tax-calculator', title: 'Property CGT Calculator', desc: '60-day HMRC deadline, buy-to-let' },
   { slug: 'shares-capital-gains-tax-calculator', title: 'Shares CGT Calculator', desc: 'Single-disposal quick estimate' },
   { slug: 'crypto-capital-gains-tax-calculator', title: 'Crypto CGT Calculator', desc: 'Disposals, swaps, Self Assessment' },

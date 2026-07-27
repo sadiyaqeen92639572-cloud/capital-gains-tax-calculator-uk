@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Capital Gains Tax Allowance Calculator UK 2026/27 — £3,000 Exempt Amount</title>
-<meta name="description" content="Free CGT allowance calculator. See how much of your £3,000 annual exempt amount is used and what remains taxable.">
-<link rel="canonical" href="https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/">
+<title>Combined CGT Calculator UK 2026/27 — Multiple Asset Types, One Allowance</title>
+<meta name="description" content="Sold property AND shares (or crypto) in the same tax year? The only UK CGT calculator that combines multiple disposal types under one shared £3,000 allowance, the way HMRC actually assesses it.">
+<link rel="canonical" href="https://mycgttax.co.uk/combined-capital-gains-tax-calculator/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta property="og:title" content="Capital Gains Tax Allowance Calculator UK 2026/27 — £3,000 Exempt Amount">
-<meta property="og:description" content="Free CGT allowance calculator. See how much of your £3,000 annual exempt amount is used and what remains taxable.">
+<meta property="og:title" content="Combined CGT Calculator UK 2026/27 — Multiple Asset Types, One Allowance">
+<meta property="og:description" content="Sold property AND shares (or crypto) in the same tax year? The only UK CGT calculator that combines multiple disposal types under one shared £3,000 allowance, the way HMRC actually assesses it.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/">
+<meta property="og:url" content="https://mycgttax.co.uk/combined-capital-gains-tax-calculator/">
 <meta property="og:image" content="https://mycgttax.co.uk/og-image.svg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://mycgttax.co.uk/og-image.svg">
@@ -23,9 +23,9 @@
   "@graph": [
     {
       "@type": "WebApplication",
-      "name": "Capital Gains Tax Allowance Calculator",
-      "url": "https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/",
-      "description": "Free CGT allowance calculator. See how much of your £3,000 annual exempt amount is used and what remains taxable.",
+      "name": "Combined Capital Gains Tax Calculator",
+      "url": "https://mycgttax.co.uk/combined-capital-gains-tax-calculator/",
+      "description": "Sold property AND shares (or crypto) in the same tax year? The only UK CGT calculator that combines multiple disposal types under one shared £3,000 allowance, the way HMRC actually assesses it.",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "inLanguage": "en-GB",
@@ -44,34 +44,34 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is the Capital Gains Tax allowance for 2026/27?",
+          "name": "Do I get a separate £3,000 CGT allowance for each type of asset I sell?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The annual exempt amount is £3,000 per person for the 2026/27 tax year."
+            "text": "No — the £3,000 annual exempt amount is a single allowance per person, per tax year, shared across all your chargeable gains combined (property, shares, crypto, other assets). Using a separate calculator for each asset type and adding the results will overstate your true allowance."
           }
         },
         {
           "@type": "Question",
-          "name": "Does the CGT allowance apply per asset or per person?",
+          "name": "I sold a rental property and some shares in the same tax year — how is my CGT worked out?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Per person, across all your gains combined in a tax year — property, shares, crypto and other assets all share the same single £3,000 allowance, not a separate allowance each."
+            "text": "HMRC combines both gains, deducts the single £3,000 allowance (applied where it saves the most tax), then taxes the remainder at 18% within your remaining basic rate Income Tax band and 24% above it — both gains together, not as two separate calculations."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I carry forward an unused CGT allowance?",
+          "name": "Does the order I use my allowance in matter?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No — the annual exempt amount doesn't carry forward to future tax years. If you don't use it, it's lost at the end of the tax year on 5 April."
+            "text": "Yes — HMRC lets you (in effect) apply the exempt amount and basic rate band in the order that minimises your tax. This calculator applies the allowance to standard-rate gains before Business Asset Disposal Relief gains, since BADR gains are already taxed at a lower flat rate and benefit less from the allowance."
           }
         },
         {
           "@type": "Question",
-          "name": "Do my spouse and I get separate allowances?",
+          "name": "What if I have a loss on one disposal and a gain on another?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes — each spouse or civil partner has their own £3,000 annual exempt amount. Transfers of assets between spouses are tax-free, so splitting a disposal between you can use both allowances."
+            "text": "Losses in the same tax year are set against gains before the annual exempt amount is applied, reducing your total chargeable gain. Enter a negative figure for any disposal that resulted in a loss."
           }
         }
       ]
@@ -88,8 +88,8 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Capital Gains Tax Allowance Calculator",
-          "item": "https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/"
+          "name": "Combined Capital Gains Tax Calculator",
+          "item": "https://mycgttax.co.uk/combined-capital-gains-tax-calculator/"
         }
       ]
     }
@@ -198,57 +198,64 @@
 
 <header>
   <div class="flag">🇬🇧 UK Capital Gains Tax · 2026/27 Rates</div>
-  <h1>Capital Gains Tax Allowance Calculator</h1>
-  <p>See exactly how the £3,000 annual exempt amount applies to your gain.</p>
+  <h1>Combined Capital Gains Tax Calculator</h1>
+  <p>Sold more than one type of asset this tax year? Your £3,000 allowance is shared across all of them — this calculator gets that right.</p>
 </header>
 
 <div class="tool-card">
 
-  <div class="input-group"><label>Total Gains This Tax Year (£)</label><div class="hint">Add up all gains across property, shares, crypto etc.</div><input type="number" id="gain" min="0" step="250" value="4500"></div>
-  <button class="btn" onclick="calculate()">Check My Allowance →</button>
+  <div id="disposalRows"></div>
+  <button type="button" class="btn" style="background:white;color:#0f766e;border:1.5px solid #0f766e;margin-bottom:20px;" onclick="addRow()">+ Add Another Disposal</button>
+  <div class="input-group"><label>Your Other Taxable Income (£)</label><div class="hint">Salary, profit etc. for the tax year — determines your rate band</div><input type="number" id="income" min="0" step="500" value="35000"></div>
+  <button class="btn" onclick="calculate()">Calculate Combined CGT →</button>
   <div class="results" id="results">
-    <div class="result-hero"><div class="value" id="r-taxable">—</div><div class="label">Taxable Gain (After Allowance)</div></div>
+    <div class="result-hero"><div class="value" id="r-total">—</div><div class="label">Total Estimated CGT (All Disposals)</div></div>
     <div class="band-breakdown">
-      <div><span>Total gains</span><span id="r-gain">—</span></div>
-      <div><span>Annual exempt amount available</span><span>£3,000</span></div>
-      <div><span>Allowance used</span><span id="r-used">—</span></div>
-      <div><span>Remaining taxable</span><span id="r-taxable2">—</span></div>
+      <div><span>Total net gain (all disposals)</span><span id="r-netgain">—</span></div>
+      <div><span>£3,000 allowance used</span><span id="r-exempt">—</span></div>
+      <div><span>Taxed at 18%</span><span id="r-basic">—</span></div>
+      <div><span>Taxed at 24%</span><span id="r-higher">—</span></div>
+      <div><span>Taxed at BADR 18%</span><span id="r-badr">—</span></div>
     </div>
+    <div class="callout"><strong>Why this differs from adding up separate calculators:</strong> you only get <strong>one</strong> £3,000 annual exempt amount, shared across every disposal in the tax year — not one per asset type. This calculator applies it, then fills your remaining basic rate band, across the combined total, the way HMRC actually assesses your Self Assessment CGT summary — not as isolated per-asset totals.</div>
   </div>
 </div>
 
 <div class="content">
   <h2>Explore More Capital Gains Tax Calculators</h2>
   <div class="sat-grid"><a class="sat-link" href="/"><div class="t">Capital Gains Tax Calculator</div><div class="d">Main CGT calculator, all asset types</div></a>
-<a class="sat-link" href="/combined-capital-gains-tax-calculator/"><div class="t">Combined CGT Calculator</div><div class="d">Multiple asset types, one £3,000 allowance</div></a>
 <a class="sat-link" href="/property-capital-gains-tax-calculator/"><div class="t">Property CGT Calculator</div><div class="d">60-day HMRC deadline, buy-to-let</div></a>
 <a class="sat-link" href="/shares-capital-gains-tax-calculator/"><div class="t">Shares CGT Calculator</div><div class="d">Single-disposal quick estimate</div></a>
 <a class="sat-link" href="/crypto-capital-gains-tax-calculator/"><div class="t">Crypto CGT Calculator</div><div class="d">Disposals, swaps, Self Assessment</div></a>
+<a class="sat-link" href="/capital-gains-tax-allowance-calculator/"><div class="t">CGT Allowance Calculator</div><div class="d">£3,000 annual exempt amount</div></a>
 <a class="sat-link" href="/how-to-avoid-capital-gains-tax-uk/"><div class="t">How to Reduce CGT Legally</div><div class="d">ISA, spousal transfer, timing</div></a>
 <a class="sat-link" href="/capital-gains-tax-rates-uk/"><div class="t">CGT Rates & Percentage</div><div class="d">Full 2026/27 rate reference</div></a></div>
 
   
-  <h2>The CGT Annual Exempt Amount 2026/27</h2>
-  <p>Every individual gets a £3,000 tax-free Capital Gains Tax allowance each tax year (6 April to 5 April) — down significantly from £12,300 in 2022/23, via £6,000 in 2023/24. It applies once per person, across <strong>all</strong> your gains combined (property, shares, crypto, other assets), not once per asset type.</p>
-  <div class="table-wrap"><table><tr><th>Tax Year</th><th>Annual Exempt Amount</th></tr>
-  <tr><td>2022/23</td><td>£12,300</td></tr>
-  <tr><td>2023/24</td><td>£6,000</td></tr>
-  <tr><td>2024/25 onwards</td><td>£3,000</td></tr>
+  <h2>Why Combining Matters</h2>
+  <p>Every CGT calculator checked when building this site — including dedicated property, shares and crypto tools — calculates each asset type in isolation. That's wrong for anyone who disposed of more than one type of asset in the same tax year: the £3,000 annual exempt amount is <strong>a single allowance per person, per tax year</strong>, not one per asset type. Run a property sale through one calculator and a share sale through another, and you'll double-count the allowance and get a wrong total.</p>
+  <h3>How HMRC actually assesses combined gains</h3>
+  <p>On your Self Assessment CGT summary, you report <strong>all</strong> chargeable gains for the year together. HMRC's guidance allows the annual exempt amount and remaining basic rate band to be set against whichever gains reduce your tax bill the most — in practice, that means applying the allowance to gains taxed at the standard 18%/24% rates before gains already benefiting from a lower flat rate (such as Business Asset Disposal Relief), since the allowance saves more tax there.</p>
+  <div class="table-wrap"><table><tr><th>Step</th><th>What happens</th></tr>
+  <tr><td>1</td><td>Sum all chargeable gains (and losses) across every disposal in the tax year</td></tr>
+  <tr><td>2</td><td>Apply the single £3,000 exempt amount — to standard-rate gains first, then BADR gains if any allowance remains</td></tr>
+  <tr><td>3</td><td>Fill your remaining basic rate Income Tax band with standard-rate taxable gains at 18%, the rest at 24%</td></tr>
+  <tr><td>4</td><td>Tax any remaining BADR-qualifying gain at a flat 18%</td></tr>
   </table></div>
-  <p><strong>Married couples and civil partners</strong> each get their own £3,000 allowance — transferring an asset to a spouse before sale (a tax-free transfer between spouses) can effectively double the tax-free amount available on a joint disposal.</p>
-  <p>The allowance doesn't carry forward — if you don't use it in a tax year, it's lost.</p>
+  <p>This is a simplified model of that ordering — it doesn't cover carried interest, Investors' Relief, or gains eligible for multiple different reliefs at once. For anything beyond a straightforward mix of property/shares/crypto/business gains, confirm the exact ordering with an accountant.</p>
 
   
 <div class="cta-box">
-  <h2>Get Independent Financial Advice</h2>
-  <p>This figure is an estimate — deciding how it fits into your wider finances is a bigger decision worth getting right.</p>
+  <h2>Get It Filed Correctly, Not Just Estimated</h2>
+  <p>This calculator gives an estimate — actually reporting and paying it correctly is a separate step with its own deadline and paperwork.</p>
   <ul>
-    <li><strong>Gain close to £3,000:</strong> small timing changes (selling part this tax year, part next) can keep you under the allowance in both years.</li>
-    <li><strong>Multiple allowances to use:</strong> spouses/civil partners each get their own £3,000 CGT allowance — transferring assets between you before disposal can double what's tax-free.</li>
-    <li><strong>Large one-off gain:</strong> understand how it interacts with your Income Tax band and other allowances for the year.</li>
+    <li><strong>Mixed disposals in one tax year:</strong> a property sale on top of a share sale doesn't just add two bills together — the deadlines differ (60 days for property, 31 January Self Assessment for everything else) and the order gains are set against your allowance and rate bands changes what you owe. Getting the sequencing wrong is a common source of overpayment.</li>
+    <li><strong>Multiple disposals in one tax year:</strong> ordering and timing disposals across the 5/6 April boundary can materially change what you owe.</li>
+    <li><strong>Inherited or gifted assets:</strong> your acquisition cost for CGT purposes isn't always what you think — get the base cost confirmed.</li>
+    <li><strong>Business Asset Disposal Relief:</strong> can cut your rate to 18% on qualifying gains, but eligibility rules are strict.</li>
   </ul>
-  <p>An FCA-regulated independent financial adviser can model your specific numbers — free directories like Unbiased.co.uk match you with a local IFA.</p>
-  <a href="#" class="cta-btn" target="_blank" rel="noopener">Find an Independent Financial Adviser →</a>
+  <p>A fixed-fee online accountant can handle the return and your wider Self Assessment together.</p>
+  <a href="#" class="cta-btn" target="_blank" rel="noopener">Compare Online Accountants →</a>
 </div>
 
   
@@ -259,9 +266,9 @@
     </h2>
     <div class="eeat-grid">
       <div class="eeat-author-card">
-        <div class="eeat-avatar">AL</div>
+        <div class="eeat-avatar">CB</div>
         <div class="eeat-author-info">
-          <h3>Capital Gains Tax Allowance Calculator</h3>
+          <h3>Combined Capital Gains Tax Calculator</h3>
           <div class="eeat-author-subtitle">Independent, Open-Source Estimator</div>
           <p>An independent calculator applying published HMRC CGT rates deterministically — no AI estimate, no official affiliation.</p>
         </div>
@@ -283,10 +290,10 @@
     </div>
   </div>
 
-  <div class="faq"><h2>Frequently Asked Questions</h2><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the Capital Gains Tax allowance for 2026/27?</div><div class="faq-a">The annual exempt amount is £3,000 per person for the 2026/27 tax year.</div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does the CGT allowance apply per asset or per person?</div><div class="faq-a">Per person, across all your gains combined in a tax year — property, shares, crypto and other assets all share the same single £3,000 allowance, not a separate allowance each.</div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I carry forward an unused CGT allowance?</div><div class="faq-a">No — the annual exempt amount doesn't carry forward to future tax years. If you don't use it, it's lost at the end of the tax year on 5 April.</div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do my spouse and I get separate allowances?</div><div class="faq-a">Yes — each spouse or civil partner has their own £3,000 annual exempt amount. Transfers of assets between spouses are tax-free, so splitting a disposal between you can use both allowances.</div></div></div>
+  <div class="faq"><h2>Frequently Asked Questions</h2><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I get a separate £3,000 CGT allowance for each type of asset I sell?</div><div class="faq-a">No — the £3,000 annual exempt amount is a single allowance per person, per tax year, shared across all your chargeable gains combined (property, shares, crypto, other assets). Using a separate calculator for each asset type and adding the results will overstate your true allowance.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">I sold a rental property and some shares in the same tax year — how is my CGT worked out?</div><div class="faq-a">HMRC combines both gains, deducts the single £3,000 allowance (applied where it saves the most tax), then taxes the remainder at 18% within your remaining basic rate Income Tax band and 24% above it — both gains together, not as two separate calculations.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does the order I use my allowance in matter?</div><div class="faq-a">Yes — HMRC lets you (in effect) apply the exempt amount and basic rate band in the order that minimises your tax. This calculator applies the allowance to standard-rate gains before Business Asset Disposal Relief gains, since BADR gains are already taxed at a lower flat rate and benefit less from the allowance.</div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What if I have a loss on one disposal and a gain on another?</div><div class="faq-a">Losses in the same tax year are set against gains before the annual exempt amount is applied, reducing your total chargeable gain. Enter a negative figure for any disposal that resulted in a loss.</div></div></div>
 </div>
 
 <footer>
@@ -307,14 +314,74 @@ function cgtOnGain(gain, income, badr) {
   return { taxableGain, atBasic, atHigher, total: atBasic * 0.18 + atHigher * 0.24 };
 }
 
+let rowCount = 0;
+function rowHtml(id) {
+  return `<div class="two-col" id="row-${id}" style="align-items:end;margin-bottom:10px;">
+    <div class="input-group" style="margin-bottom:0;">
+      <label>Asset Type</label>
+      <select id="type-${id}">
+        <option value="property">Property</option>
+        <option value="shares">Shares &amp; Funds</option>
+        <option value="crypto">Crypto</option>
+        <option value="other">Other / Business Asset</option>
+      </select>
+    </div>
+    <div class="input-group" style="margin-bottom:0;">
+      <label>Gain (£) <span style="font-weight:400;color:var(--muted);">— negative for a loss</span></label>
+      <input type="number" id="gain-${id}" step="500" value="0">
+    </div>
+  </div>
+  <div class="checkbox-row" id="badrrow-${id}">
+    <input type="checkbox" id="badr-${id}">
+    <label for="badr-${id}">Business Asset Disposal Relief applies to this disposal</label>
+  </div>`;
+}
+function addRow(){
+  rowCount++;
+  const div=document.createElement('div');
+  div.innerHTML=rowHtml(rowCount);
+  document.getElementById('disposalRows').appendChild(div);
+}
+addRow(); addRow();
+document.getElementById('disposalRows').children[0].querySelector('input').value=60000;
+document.getElementById('disposalRows').children[1].querySelector('input').value=8000;
+
 function calculate(){
-  const gain=parseFloat(document.getElementById('gain').value)||0;
-  const used=Math.min(gain,EXEMPT);
-  const taxable=Math.max(0,gain-EXEMPT);
-  document.getElementById('r-taxable').textContent=fmt(taxable);
-  document.getElementById('r-gain').textContent=fmt(gain);
-  document.getElementById('r-used').textContent=fmt(used);
-  document.getElementById('r-taxable2').textContent=fmt(taxable);
+  const income=parseFloat(document.getElementById('income').value)||0;
+  let gainsNonBadr=0, gainsBadr=0;
+  for(let i=1;i<=rowCount;i++){
+    const gainEl=document.getElementById('gain-'+i);
+    if(!gainEl) continue;
+    const gain=parseFloat(gainEl.value)||0;
+    const badr=document.getElementById('badr-'+i).checked;
+    if(badr) gainsBadr+=gain; else gainsNonBadr+=gain;
+  }
+  gainsNonBadr=Math.max(0,gainsNonBadr);
+  gainsBadr=Math.max(0,gainsBadr);
+  const netGain=gainsNonBadr+gainsBadr;
+
+  // Allocate the single £3,000 exempt amount where it saves the most tax:
+  // against standard-rate gains (18/24%) before BADR gains (already 18% flat).
+  const exemptForNonBadr=Math.min(EXEMPT,gainsNonBadr);
+  const exemptRemaining=EXEMPT-exemptForNonBadr;
+  const exemptForBadr=Math.min(exemptRemaining,gainsBadr);
+  const exemptUsed=exemptForNonBadr+exemptForBadr;
+
+  const taxableNonBadr=gainsNonBadr-exemptForNonBadr;
+  const taxableBadr=gainsBadr-exemptForBadr;
+
+  const basicBandRemaining=Math.max(0,BASIC_LIMIT-income);
+  const atBasic=Math.min(taxableNonBadr,basicBandRemaining);
+  const atHigher=taxableNonBadr-atBasic;
+  const badrTax=taxableBadr*0.18;
+  const total=atBasic*0.18+atHigher*0.24+badrTax;
+
+  document.getElementById('r-total').textContent=fmt(total);
+  document.getElementById('r-netgain').textContent=fmt(netGain);
+  document.getElementById('r-exempt').textContent=fmt(exemptUsed);
+  document.getElementById('r-basic').textContent=fmt(atBasic*0.18);
+  document.getElementById('r-higher').textContent=fmt(atHigher*0.24);
+  document.getElementById('r-badr').textContent=fmt(badrTax);
   document.getElementById('results').classList.add('show');
 }
 </script>
