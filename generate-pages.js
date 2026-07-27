@@ -4,10 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE_URL = 'https://mycgttax.co.uk';
-// GSC verification tag: pending — set to the mycgttax.co.uk-specific tag from
-// GSC → Settings → Ownership verification once the property is added.
-// Do NOT reuse the shared github.io tag or another site's domain tag.
-const GSC_TAG = '';
+const GSC_TAG = 'yxzrVMydqoln2YebYXP_nMZJdN2GDpg9ynLnbgsciu8';
 
 const CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

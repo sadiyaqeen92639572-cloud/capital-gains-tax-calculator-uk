@@ -62,7 +62,7 @@ featured first in every satellite's nav grid.
 ## Build
 
 ```bash
-node generate-pages.js   # emits all 6 satellite folders + sitemap.xml
+node generate-pages.js   # emits all 7 satellite folders + sitemap.xml
 ```
 
 The homepage `index.html` is hand-written; everything else is generated.
@@ -72,12 +72,11 @@ with the `<script>` block in `index.html` if rates change.
 ## Deploy
 
 Push to `main` → GitHub Pages workflow (`.github/workflows/pages.yml`)
-publishes the repo root. Custom domain via `CNAME` (`mycgttax.co.uk`) —
-point DNS (A records to GitHub Pages IPs, or CNAME to `<username>.github.io`)
-before traffic will resolve. **After adding the domain in Google Search
-Console, replace the empty `GSC_TAG` in `generate-pages.js` and the
-placeholder comment in `index.html` with the domain-specific verification
-tag** — do not reuse the shared github.io tag or another site's tag.
+publishes the repo root. Custom domain via `CNAME` (`mycgttax.co.uk`) — DNS
+pointed (A records to GitHub Pages IPs + CNAME for `www`), HTTPS certificate
+approved, site live as of the July 2026 audit. Domain-specific GSC
+verification tag is set in both `index.html` and `generate-pages.js`'s
+`GSC_TAG` constant.
 
 ## Monetization
 
