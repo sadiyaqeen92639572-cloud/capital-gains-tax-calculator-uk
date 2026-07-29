@@ -6,6 +6,10 @@ CGT estimate, including the £3,000 annual exempt amount.
 
 **Live site:** [mycgttax.co.uk](https://mycgttax.co.uk) (domain pending DNS setup)
 
+## Free Companion Tools
+
+- [Share Pool Cost Basis Calculator (Section 104)](https://sadiyaqeen92639572-cloud.github.io/share-pool-cost-basis-calculator/) — pools multiple share purchases into HMRC's Section 104 average cost per share. Deliberately doesn't attempt same-day/30-day matching (see this repo's shares satellite scope note). Powered by [mycgttax.co.uk](https://mycgttax.co.uk) for the actual gain/tax calculation, including the combined multi-asset calculator for years with property + shares + crypto disposals.
+
 ## Features
 
 - Universal calculator (property/shares/crypto/other, BADR toggle) — homepage
