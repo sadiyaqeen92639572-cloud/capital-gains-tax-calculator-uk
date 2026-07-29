@@ -4,7 +4,7 @@ Free UK Capital Gains Tax calculator — enter your gain, asset type (property,
 shares, crypto, other) and other taxable income to get an instant 2026/27
 CGT estimate, including the £3,000 annual exempt amount.
 
-**Live site:** [mycgttax.co.uk](https://mycgttax.co.uk) (domain pending DNS setup)
+**Live site:** [mycgttax.co.uk](https://mycgttax.co.uk)
 
 ## Free Companion Tools
 
