@@ -5,6 +5,10 @@ const path = require('path');
 
 const SITE_URL = 'https://mycgttax.co.uk';
 const GSC_TAG = 'yxzrVMydqoln2YebYXP_nMZJdN2GDpg9ynLnbgsciu8';
+// Keep in sync with the dateModified in index.html's own JSON-LD (hand-maintained, not generated).
+const DATE_PUBLISHED = '2026-07-01';
+const LAST_UPDATED = '2026-07-29';
+const LAST_UPDATED_DISPLAY = '29 July 2026';
 
 const CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -95,6 +99,7 @@ const CSS = `
   .eeat-author-info h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
   .eeat-author-subtitle { font-size: 0.76rem; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
   .eeat-author-info p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+  .eeat-last-updated { font-size: 0.76rem !important; color: var(--muted); margin-top: 6px; font-weight: 600; }
   .eeat-compliance { display: flex; flex-direction: column; gap: 14px; }
   .eeat-compliance-item { display: flex; gap: 10px; align-items: flex-start; }
   .eeat-compliance-icon { color: var(--brand); flex-shrink: 0; margin-top: 3px; }
@@ -110,7 +115,13 @@ const SATELLITES_NAV = [
   { slug: 'crypto-capital-gains-tax-calculator', title: 'Crypto CGT Calculator', desc: 'Disposals, swaps, Self Assessment' },
   { slug: 'capital-gains-tax-allowance-calculator', title: 'CGT Allowance Calculator', desc: '£3,000 annual exempt amount' },
   { slug: 'how-to-avoid-capital-gains-tax-uk', title: 'How to Reduce CGT Legally', desc: 'ISA, spousal transfer, timing' },
-  { slug: 'capital-gains-tax-rates-uk', title: 'CGT Rates & Percentage', desc: 'Full 2026/27 rate reference' }
+  { slug: 'capital-gains-tax-rates-uk', title: 'CGT Rates & Percentage', desc: 'Full 2026/27 rate reference' },
+  { slug: 'capital-gains-tax-on-gifted-property-uk', title: 'CGT on Gifted Property', desc: 'Gifting to family, Hold-Over Relief' },
+  { slug: 'capital-gains-tax-divorce-separation-uk', title: 'CGT in Divorce & Separation', desc: 'No-gain/no-loss window, deadlines' },
+  { slug: 'capital-gains-tax-inherited-property-uk', title: 'CGT on Inherited Property', desc: 'Probate value as your base cost' },
+  { slug: 'capital-gains-tax-non-resident-uk', title: 'CGT for Non-Residents', desc: 'NRCGT return, mid-year emigration' },
+  { slug: 'capital-gains-tax-relief-checker-uk', title: 'CGT Relief Checker', desc: 'Which relief might apply — PRR, BADR, Hold-Over' },
+  { slug: 'compare-online-accountants-for-cgt-uk', title: 'Compare Online Accountants', desc: 'Fixed-fee vs full accountant vs DIY' }
 ];
 
 function satGridHtml(excludeSlug) {
@@ -135,6 +146,7 @@ function ctaAccountant({ deadlineCopy }) {
     <li><strong>Business Asset Disposal Relief:</strong> can cut your rate to 18% on qualifying gains, but eligibility rules are strict.</li>
   </ul>
   <p>A fixed-fee online accountant can handle the return and your wider Self Assessment together.</p>
+  <!-- TODO(affiliate): replace with real accountant-comparison affiliate URL before deploy. -->
   <a href="#" class="cta-btn" target="_blank" rel="noopener">Compare Online Accountants →</a>
 </div>`;
 }
@@ -151,6 +163,22 @@ const CTA_ACCOUNTANT_COMBINED = ctaAccountant({
   deadlineCopy: `<li><strong>Mixed disposals in one tax year:</strong> a property sale on top of a share sale doesn't just add two bills together — the deadlines differ (60 days for property, 31 January Self Assessment for everything else) and the order gains are set against your allowance and rate bands changes what you owe. Getting the sequencing wrong is a common source of overpayment.</li>`
 });
 
+const CTA_ACCOUNTANT_GIFT = ctaAccountant({
+  deadlineCopy: `<li><strong>Gifting an asset (not selling it):</strong> HMRC treats most gifts to anyone other than a spouse/civil partner as a disposal at market value, whether or not money changes hands — get the market-value figure and any Hold-Over Relief claim confirmed before you gift, not after.</li>`
+});
+
+const CTA_ACCOUNTANT_DIVORCE = ctaAccountant({
+  deadlineCopy: `<li><strong>Transferring or selling assets in divorce:</strong> the no-gain/no-loss treatment only applies within a limited window after separation — miss it and a transfer that should have been tax-free can trigger a real CGT bill.</li>`
+});
+
+const CTA_ACCOUNTANT_INHERITED = ctaAccountant({
+  deadlineCopy: `<li><strong>Selling an inherited property:</strong> your acquisition cost is the probate value at the date of death, not what the deceased originally paid — get that figure confirmed from the estate's probate valuation before calculating your gain.</li>`
+});
+
+const CTA_ACCOUNTANT_NONRESIDENT = ctaAccountant({
+  deadlineCopy: `<li><strong>Non-resident disposing of UK property:</strong> you must file an NRCGT return within 60 days regardless of whether tax is due, and rebasing rules mean your gain is usually calculated from the property's value in April 2015, not your original purchase price.</li>`
+});
+
 const CTA_INVESTMENT_PLATFORM = `
 <div class="cta-box">
   <h2>Shelter Future Gains From CGT Entirely</h2>
@@ -161,6 +189,7 @@ const CTA_INVESTMENT_PLATFORM = `
     <li><strong>Approaching the £3,000 CGT allowance each year:</strong> moving holdings into an ISA gradually, using each year's allowance, avoids a large taxable disposal later.</li>
   </ul>
   <p>Investment platforms like Hargreaves Lansdown, interactive investor and Trading 212 make ISA transfers and Bed-and-ISA straightforward.</p>
+  <!-- TODO(affiliate): replace with real investment-platform affiliate URL before deploy. -->
   <a href="#" class="cta-btn" target="_blank" rel="noopener">Compare Investment Platforms →</a>
 </div>`;
 
@@ -175,6 +204,7 @@ function ctaIfa({ line }) {
     <li><strong>Large one-off gain:</strong> understand how it interacts with your Income Tax band and other allowances for the year.</li>
   </ul>
   <p>An FCA-regulated independent financial adviser can model your specific numbers — free directories like Unbiased.co.uk match you with a local IFA.</p>
+  <!-- TODO(affiliate): replace with real IFA-directory affiliate URL before deploy. -->
   <a href="#" class="cta-btn" target="_blank" rel="noopener">Find an Independent Financial Adviser →</a>
 </div>`;
 }
@@ -197,6 +227,7 @@ function eeatSection(pageTitle, avatarInitials) {
           <h3>${pageTitle}</h3>
           <div class="eeat-author-subtitle">Independent, Open-Source Estimator</div>
           <p>An independent calculator applying published HMRC CGT rates deterministically — no AI estimate, no official affiliation.</p>
+          <p class="eeat-last-updated">Last updated: ${LAST_UPDATED_DISPLAY}</p>
         </div>
       </div>
       <div class="eeat-compliance">
@@ -270,7 +301,7 @@ ${gscMeta}
 ${JSON.stringify({
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "WebApplication", "name": title, "url": canonical, "description": metaDesc, "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "en-GB", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }, "areaServed": { "@type": "Country", "name": "United Kingdom" } },
+    { "@type": "WebApplication", "name": title, "url": canonical, "description": metaDesc, "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "en-GB", "datePublished": DATE_PUBLISHED, "dateModified": LAST_UPDATED, "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }, "areaServed": { "@type": "Country", "name": "United Kingdom" } },
     { "@type": "FAQPage", "mainEntity": faqJsonLd(faqs) },
     { "@type": "BreadcrumbList", "itemListElement": [ { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/" }, { "@type": "ListItem", "position": 2, "name": title, "item": canonical } ] }
   ]
@@ -912,6 +943,511 @@ function calculate(){
     { q: 'How do I work out Capital Gains Tax?', a: 'Subtract allowable costs from your sale price to get the gain, deduct the £3,000 annual exempt amount, then apply 18% to the portion within your remaining basic rate band and 24% to the rest, based on your total taxable income for the year.' },
     { q: 'What is the Capital Gains Tax percentage for property vs shares?', a: 'The same — 18%/24% — for both, since the October 2024 Budget aligned property and other asset rates. There is no longer a separate, lower rate for shares.' },
     { q: 'Is Capital Gains Tax the same across the whole UK?', a: 'Yes — Capital Gains Tax is set by Westminster and applies the same way in England, Scotland, Wales and Northern Ireland, unlike Income Tax which has different bands in Scotland.' }
+  ]
+});
+
+// 8. Gifted property — market-value disposal rule, Gift Hold-Over Relief toggle
+PAGES.push({
+  slug: 'capital-gains-tax-on-gifted-property-uk',
+  title: 'Capital Gains Tax on Gifted Property',
+  metaTitle: 'Capital Gains Tax on Gifted Property UK 2026/27 — Hold-Over Relief',
+  metaDesc: 'Gifting property or shares to a child or family member? Free calculator for CGT on the market-value gain, including Gift Hold-Over Relief.',
+  h1: 'Capital Gains Tax on Gifted Property',
+  intro: 'Gifting an asset to a child or family member? HMRC still treats it as a disposal at market value.',
+  avatarInitials: 'GF',
+  ctaSnippet: CTA_ACCOUNTANT_GIFT,
+  toolHtml: `
+  <div class="two-col">
+    <div class="input-group"><label>Gain at Market Value (£)</label><div class="hint">Market value on the date of gift, minus your original acquisition cost</div><input type="number" id="gain" min="0" step="500" value="40000"></div>
+    <div class="input-group"><label>Your Other Taxable Income (£)</label><input type="number" id="income" min="0" step="500" value="35000"></div>
+  </div>
+  <div class="checkbox-row">
+    <input type="checkbox" id="holdover">
+    <label for="holdover">Claiming Gift Hold-Over Relief (business assets or some trust gifts only)</label>
+  </div>
+  <button class="btn" onclick="calculate()">Work Out My CGT →</button>
+  <div class="results" id="results">
+    <div class="result-hero"><div class="value" id="r-total">—</div><div class="label" id="r-label">Estimated CGT Owed Now</div></div>
+    <div class="band-breakdown" id="r-breakdown">
+      <div><span>Taxable gain</span><span id="r-taxable">—</span></div>
+      <div><span>Taxed at 18%</span><span id="r-basic">—</span></div>
+      <div><span>Taxed at 24%</span><span id="r-higher">—</span></div>
+    </div>
+    <div class="callout"><strong>Gifts aren't exempt just because no money changes hands.</strong> Outside gifts to a spouse/civil partner or a qualifying charity, HMRC treats a gift as a disposal at the asset's market value on the gift date — the recipient paying nothing doesn't remove the CGT charge on the giver.</div>
+  </div>`,
+  toolJs: `
+function calculate(){
+  const gain=parseFloat(document.getElementById('gain').value)||0;
+  const income=parseFloat(document.getElementById('income').value)||0;
+  const holdover=document.getElementById('holdover').checked;
+  if(holdover){
+    document.getElementById('r-total').textContent='£0';
+    document.getElementById('r-label').textContent='CGT Due Now (gain held over)';
+    document.getElementById('r-breakdown').innerHTML='<div><span>Gain deferred to recipient</span><span>'+fmt(gain)+'</span></div><div><span>Recipient\\'s future base cost reduced by</span><span>'+fmt(gain)+'</span></div>';
+    document.getElementById('results').classList.add('show');
+    return;
+  }
+  const r=cgtOnGain(gain,income,false);
+  document.getElementById('r-label').textContent='Estimated CGT Owed Now';
+  document.getElementById('r-breakdown').innerHTML='<div><span>Taxable gain</span><span>'+fmt(r.taxableGain)+'</span></div><div><span>Taxed at 18%</span><span>'+fmt(r.atBasic*0.18)+'</span></div><div><span>Taxed at 24%</span><span>'+fmt(r.atHigher*0.24)+'</span></div>';
+  document.getElementById('r-total').textContent=fmt(r.total);
+  document.getElementById('results').classList.add('show');
+}`,
+  extraContent: `
+  <h2>Why Gifting an Asset Can Still Trigger CGT</h2>
+  <p>Selling something below market value or giving it away outright doesn't avoid Capital Gains Tax — for CGT purposes, HMRC treats most gifts as a disposal at the asset's full market value on the date of the gift, not whatever (if anything) actually changed hands. The exception is a gift to your spouse or civil partner, or to a UK-registered charity, which is treated as a no-gain/no-loss transfer with no CGT due.</p>
+  <h3>Gift Hold-Over Relief</h3>
+  <p>For certain gifts — mainly business assets, agricultural property, or gifts into (or out of) most trusts — you and the recipient can jointly elect for Gift Hold-Over Relief. This doesn't cancel the gain; it defers it by reducing the recipient's acquisition cost by the amount of the held-over gain, so the CGT is effectively paid later, when the recipient eventually disposes of the asset. It does <strong>not</strong> apply to a straightforward gift of a family home or investment property to a child — that gain is chargeable immediately.</p>
+  <h3>Gifting the family home</h3>
+  <p>Gifting your only or main residence to a child while you still live in it (without paying a market rent) can also trigger the "gift with reservation of benefit" Inheritance Tax rules on top of any CGT — the two taxes are separate and both need checking.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/gifts, gov.uk/hold-over-relief-gifts-hmrc · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>Disposal value used</td><td>Market value at gift date</td><td>gov.uk/capital-gains-tax/gifts</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Without Hold-Over Relief —</span><br>
+      <span style="color:#7dd3fc;">gain</span> = market_value_at_gift_date − original_acquisition_cost<br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br>
+      <span style="color:#7dd3fc;">cgt_now</span> = taxable_gain taxed at 18%/24% per remaining basic band<br><br>
+      <span style="color:#86efac;">— With Hold-Over Relief —</span><br>
+      <span style="color:#7dd3fc;">cgt_now</span> = £0<br>
+      <span style="color:#7dd3fc;">recipient_base_cost</span> = market_value_at_gift_date − held_over_gain`,
+    note: 'Assumes the gift qualifies for Hold-Over Relief where claimed — eligibility is restricted to business/agricultural assets and certain trust transfers; always confirm your own position with HMRC or a qualified adviser.'
+  }),
+  faqs: [
+    { q: 'Do I pay Capital Gains Tax if I gift a property and receive nothing for it?', a: 'Usually yes — HMRC treats most gifts (other than to a spouse, civil partner or charity) as a disposal at market value on the gift date, so CGT can be due even though no money changed hands.' },
+    { q: 'What is Gift Hold-Over Relief?', a: 'A joint election between giver and recipient that defers CGT on certain gifts — mainly business assets, agricultural property and some trust transfers — by reducing the recipient\'s future acquisition cost instead of charging tax now.' },
+    { q: 'Can I gift my house to my children and avoid CGT?', a: 'Gifting your only or main home while it still qualifies for Private Residence Relief is usually CGT-free, but gifting a second home, buy-to-let or a share of a home you\'ve moved out of is a chargeable disposal at market value, and Gift Hold-Over Relief doesn\'t apply to an ordinary family home gift.' },
+    { q: 'Is a gift to my spouse subject to CGT?', a: 'No — transfers between spouses or civil partners living together are treated as no-gain/no-loss, so no CGT arises on the transfer itself; the receiving spouse simply inherits the original acquisition cost for when they eventually dispose of it.' }
+  ]
+});
+
+// 9. Divorce & separation — no-gain/no-loss window
+PAGES.push({
+  slug: 'capital-gains-tax-divorce-separation-uk',
+  title: 'Capital Gains Tax in Divorce & Separation',
+  metaTitle: 'Capital Gains Tax in Divorce UK 2026/27 — No-Gain/No-Loss Window',
+  metaDesc: 'Transferring or selling assets during divorce or separation? Free calculator for CGT, including the no-gain/no-loss transfer window.',
+  h1: 'Capital Gains Tax in Divorce & Separation',
+  intro: 'Transfers between separating spouses can be CGT-free — but only within a limited window.',
+  avatarInitials: 'DV',
+  ctaSnippet: CTA_ACCOUNTANT_DIVORCE,
+  toolHtml: `
+  <div class="two-col">
+    <div class="input-group"><label>Gain on the Asset (£)</label><div class="hint">Current market value minus original acquisition cost</div><input type="number" id="gain" min="0" step="500" value="30000"></div>
+    <div class="input-group"><label>Your Other Taxable Income (£)</label><input type="number" id="income" min="0" step="500" value="35000"></div>
+  </div>
+  <div class="checkbox-row">
+    <input type="checkbox" id="nogain">
+    <label for="nogain">Transfer to spouse/civil partner within the no-gain/no-loss window</label>
+  </div>
+  <button class="btn" onclick="calculate()">Work Out My CGT →</button>
+  <div class="results" id="results">
+    <div class="result-hero"><div class="value" id="r-total">—</div><div class="label" id="r-label">Estimated CGT Owed</div></div>
+    <div class="band-breakdown" id="r-breakdown">
+      <div><span>Taxable gain</span><span id="r-taxable">—</span></div>
+      <div><span>Taxed at 18%</span><span id="r-basic">—</span></div>
+      <div><span>Taxed at 24%</span><span id="r-higher">—</span></div>
+    </div>
+    <div class="callout"><strong>The window is limited.</strong> Since 6 April 2023, separating spouses/civil partners get up to 3 years after the tax year of separation to make no-gain/no-loss transfers between themselves (longer, unlimited, if the transfer is part of a formal divorce settlement) — outside that window, transfers are taxed like any other disposal.</div>
+  </div>`,
+  toolJs: `
+function calculate(){
+  const gain=parseFloat(document.getElementById('gain').value)||0;
+  const income=parseFloat(document.getElementById('income').value)||0;
+  const nogain=document.getElementById('nogain').checked;
+  if(nogain){
+    document.getElementById('r-total').textContent='£0';
+    document.getElementById('r-label').textContent='CGT Owed (no-gain/no-loss transfer)';
+    document.getElementById('r-breakdown').innerHTML='<div><span>Gain carried over to receiving spouse</span><span>'+fmt(gain)+'</span></div>';
+    document.getElementById('results').classList.add('show');
+    return;
+  }
+  const r=cgtOnGain(gain,income,false);
+  document.getElementById('r-label').textContent='Estimated CGT Owed';
+  document.getElementById('r-breakdown').innerHTML='<div><span>Taxable gain</span><span>'+fmt(r.taxableGain)+'</span></div><div><span>Taxed at 18%</span><span>'+fmt(r.atBasic*0.18)+'</span></div><div><span>Taxed at 24%</span><span>'+fmt(r.atHigher*0.24)+'</span></div>';
+  document.getElementById('r-total').textContent=fmt(r.total);
+  document.getElementById('results').classList.add('show');
+}`,
+  extraContent: `
+  <h2>How CGT Works When You Separate or Divorce</h2>
+  <p>While you're living together as a married couple or civil partners, transfers between you are always no-gain/no-loss — no CGT arises. Once you separate, that treatment doesn't stop immediately, but it does become time-limited.</p>
+  <h3>The no-gain/no-loss window (since 6 April 2023)</h3>
+  <ul>
+    <li>Transfers made in the tax year of separation are still automatically no-gain/no-loss, as before.</li>
+    <li>You now get up to <strong>3 further tax years</strong> after the year of separation to make no-gain/no-loss transfers between yourselves.</li>
+    <li>Transfers made as part of a formal divorce or dissolution settlement have <strong>no time limit</strong> — they remain no-gain/no-loss whenever the settlement completes.</li>
+    <li>Outside those windows, a transfer or sale between former spouses is taxed like a disposal to anyone else.</li>
+  </ul>
+  <h3>The family home</h3>
+  <p>A spouse who moves out often keeps Private Residence Relief for the final 9 months of ownership, plus (since April 2023) an option to claim PRR again when the home is eventually sold or transferred to the other spouse, if they retain a financial interest in it and haven't bought another main residence — worth checking specifically for your situation.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/gifts, gov.uk guidance on separation and divorce (April 2023 reform) · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>No-gain/no-loss window</td><td>Year of separation + 3 further tax years (unlimited if part of formal settlement)</td><td>gov.uk separation &amp; divorce CGT guidance</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Inside the window —</span><br>
+      <span style="color:#7dd3fc;">cgt</span> = £0, gain carries over to receiving spouse's base cost<br><br>
+      <span style="color:#86efac;">— Outside the window —</span><br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br>
+      <span style="color:#7dd3fc;">cgt</span> = taxable_gain taxed at 18%/24% per remaining basic band`,
+    note: 'Deterministic calculation; formal settlement transfers have no time limit regardless of the general 3-year window. Always confirm your own position with HMRC or a qualified adviser.'
+  }),
+  faqs: [
+    { q: 'Do I pay Capital Gains Tax when I transfer assets to my ex-spouse during divorce?', a: 'Not if the transfer happens within the no-gain/no-loss window — the tax year of separation, plus up to 3 further tax years, or at any point if the transfer is part of a formal divorce settlement. Outside that, it\'s taxed as a normal disposal.' },
+    { q: 'How long do separating couples have for CGT-free transfers?', a: 'Since 6 April 2023: the remainder of the tax year of separation, plus up to 3 further tax years. Transfers made under a formal court-approved settlement have no time limit at all.' },
+    { q: 'What happens to Private Residence Relief when one spouse moves out?', a: 'The spouse who moves out usually retains relief for their final 9 months of ownership, and since April 2023 may be able to claim it again on an eventual sale or transfer if they still have a financial interest in the home and haven\'t bought another main residence.' },
+    { q: 'Does selling the family home in divorce trigger CGT?', a: 'Often not, if it\'s still your (or your ex-spouse\'s) main home and Private Residence Relief applies in full — but a second home, buy-to-let, or a home you moved out of well before sale can be a chargeable disposal.' }
+  ]
+});
+
+// 10. Inherited property — probate value as base cost
+PAGES.push({
+  slug: 'capital-gains-tax-inherited-property-uk',
+  title: 'Capital Gains Tax on Inherited Property',
+  metaTitle: 'Capital Gains Tax on Inherited Property UK 2026/27 — Probate Value',
+  metaDesc: 'Selling a property you inherited? Free calculator for CGT on the gain since probate value, not what the deceased originally paid.',
+  h1: 'Capital Gains Tax on Inherited Property',
+  intro: 'Your acquisition cost is the probate value at the date of death — not what the deceased paid for it.',
+  avatarInitials: 'IH',
+  ctaSnippet: CTA_ACCOUNTANT_INHERITED,
+  toolHtml: `
+  <div class="two-col">
+    <div class="input-group"><label>Sale Price (£)</label><input type="number" id="sale" min="0" step="1000" value="320000"></div>
+    <div class="input-group"><label>Probate Value at Date of Death (£)</label><div class="hint">Value used for Inheritance Tax purposes — your CGT base cost</div><input type="number" id="probate" min="0" step="1000" value="290000"></div>
+  </div>
+  <div class="input-group"><label>Your Other Taxable Income (£)</label><input type="number" id="income" min="0" step="500" value="35000"></div>
+  <button class="btn" onclick="calculate()">Work Out My CGT →</button>
+  <div class="results" id="results">
+    <div class="result-hero"><div class="value" id="r-total">—</div><div class="label">Estimated CGT Owed</div></div>
+    <div class="band-breakdown">
+      <div><span>Gain since probate value</span><span id="r-gain">—</span></div>
+      <div><span>Taxable gain</span><span id="r-taxable">—</span></div>
+      <div><span>Taxed at 18%</span><span id="r-basic">—</span></div>
+      <div><span>Taxed at 24%</span><span id="r-higher">—</span></div>
+    </div>
+    <div class="callout"><strong>No CGT on inheriting itself</strong> — Inheritance Tax may apply to the estate, but there's no CGT charge simply on becoming the owner. CGT only arises later, on the gain between the probate value and what you eventually sell for.</div>
+  </div>`,
+  toolJs: `
+function calculate(){
+  const sale=parseFloat(document.getElementById('sale').value)||0;
+  const probate=parseFloat(document.getElementById('probate').value)||0;
+  const income=parseFloat(document.getElementById('income').value)||0;
+  const gain=Math.max(0, sale-probate);
+  const r=cgtOnGain(gain,income,false);
+  document.getElementById('r-gain').textContent=fmt(gain);
+  document.getElementById('r-taxable').textContent=fmt(r.taxableGain);
+  document.getElementById('r-basic').textContent=fmt(r.atBasic*0.18);
+  document.getElementById('r-higher').textContent=fmt(r.atHigher*0.24);
+  document.getElementById('r-total').textContent=fmt(r.total);
+  document.getElementById('results').classList.add('show');
+}`,
+  extraContent: `
+  <h2>How CGT Works on an Inherited Property</h2>
+  <p>Inheriting a property doesn't itself create a Capital Gains Tax bill — Inheritance Tax is the tax that applies to the estate at the point of death, not CGT. Your CGT position only starts from the date you inherit, using the property's <strong>probate value</strong> (its market value at the date of death, as declared for Inheritance Tax) as your acquisition cost.</p>
+  <h3>Selling shortly after inheriting</h3>
+  <p>If you sell soon after probate completes, the gain is often small or nil, since the sale price and probate value tend to be close. A meaningful gain typically arises when the property is held for a while before sale, or when the probate valuation was conservative relative to what the market later paid.</p>
+  <h3>Multiple beneficiaries</h3>
+  <p>If a property is inherited jointly, each beneficiary has their own share of the gain and their own £3,000 annual exempt amount to set against it — worth modelling per person rather than treating the estate as a single taxpayer.</p>
+  <h3>60-day reporting still applies</h3>
+  <p>If the property doesn't qualify for full Private Residence Relief when sold (e.g. it wasn't your own main home), the usual 60-day UK property CGT reporting deadline applies from the completion date, same as any other property disposal.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax/inherited-property, gov.uk/valuing-estate-of-someone-who-died · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>Acquisition cost used</td><td>Probate value at date of death</td><td>gov.uk/capital-gains-tax/inherited-property</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Gain since inheriting —</span><br>
+      <span style="color:#7dd3fc;">gain</span> = max(0, sale_price − probate_value_at_death)<br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_taxable_income)<br>
+      <span style="color:#7dd3fc;">cgt</span> = min(taxable_gain, basic_band_remaining) × 18% + rest × 24%`,
+    note: 'Deterministic calculation for one beneficiary\'s full share of the gain. Joint inheritances should be modelled per beneficiary; always confirm your own position with HMRC or a qualified adviser.'
+  }),
+  faqs: [
+    { q: 'Do I pay Capital Gains Tax when I inherit a property?', a: 'No — inheriting itself doesn\'t trigger CGT. Inheritance Tax may apply to the estate at death, but your Capital Gains Tax position only starts from the date you inherit, based on the property\'s probate value.' },
+    { q: 'What is my acquisition cost for an inherited property?', a: 'The probate value — the property\'s market value at the date of death, as declared for Inheritance Tax purposes. Your CGT gain is the difference between your eventual sale price and this probate value, not what the deceased originally paid.' },
+    { q: 'Do I still get Private Residence Relief on an inherited property?', a: 'Only if it becomes your own main home before you sell it. If it was the deceased\'s home and you don\'t live in it yourself, it\'s treated as a chargeable asset for CGT, subject to the usual rates and the 60-day reporting deadline.' },
+    { q: 'How is CGT split between multiple beneficiaries who inherit together?', a: 'Each beneficiary is taxed on their own share of the gain and has their own £3,000 annual exempt amount — CGT isn\'t calculated once for the whole property and split afterwards.' }
+  ]
+});
+
+// 11. Non-resident / mid-year emigration — NRCGT return, rebasing
+PAGES.push({
+  slug: 'capital-gains-tax-non-resident-uk',
+  title: 'Capital Gains Tax for Non-Residents',
+  metaTitle: 'Capital Gains Tax for Non-Residents UK 2026/27 — NRCGT Return',
+  metaDesc: 'Selling UK property as a non-resident or leaving the UK mid-tax-year? Free calculator for CGT, including the 60-day NRCGT return.',
+  h1: 'Capital Gains Tax for Non-Residents',
+  intro: 'Non-residents pay CGT on UK property disposals too — with their own 60-day return and rebasing rules.',
+  avatarInitials: 'NR',
+  ctaSnippet: CTA_ACCOUNTANT_NONRESIDENT,
+  toolHtml: `
+  <div class="two-col">
+    <div class="input-group"><label>Gain Since 5 April 2015 (£)</label><div class="hint">Sale price minus the property's value on 5 April 2015 (rebasing date)</div><input type="number" id="gain" min="0" step="500" value="25000"></div>
+    <div class="input-group"><label>Your Other UK Taxable Income (£)</label><input type="number" id="income" min="0" step="500" value="0"></div>
+  </div>
+  <button class="btn" onclick="calculate()">Work Out My CGT →</button>
+  <div class="results" id="results">
+    <div class="result-hero"><div class="value" id="r-total">—</div><div class="label">Estimated CGT Owed</div></div>
+    <div class="band-breakdown">
+      <div><span>Taxable gain</span><span id="r-taxable">—</span></div>
+      <div><span>Taxed at 18%</span><span id="r-basic">—</span></div>
+      <div><span>Taxed at 24%</span><span id="r-higher">—</span></div>
+    </div>
+    <div class="callout"><strong>The 60-day return is due regardless of whether tax is owed.</strong> Non-residents must file an NRCGT return within 60 days of completion on every UK property/land disposal, even at a loss or covered fully by the annual exempt amount — the filing obligation and the tax liability are separate things.</div>
+  </div>`,
+  toolJs: `
+function calculate(){
+  const gain=parseFloat(document.getElementById('gain').value)||0;
+  const income=parseFloat(document.getElementById('income').value)||0;
+  const r=cgtOnGain(gain,income,false);
+  document.getElementById('r-taxable').textContent=fmt(r.taxableGain);
+  document.getElementById('r-basic').textContent=fmt(r.atBasic*0.18);
+  document.getElementById('r-higher').textContent=fmt(r.atHigher*0.24);
+  document.getElementById('r-total').textContent=fmt(r.total);
+  document.getElementById('results').classList.add('show');
+}`,
+  extraContent: `
+  <h2>How CGT Applies to Non-Residents</h2>
+  <p>Since April 2015 (extended to all UK property/land from April 2019), non-UK residents have been within the scope of UK Capital Gains Tax on disposals of UK residential and commercial property and land — this isn't a niche rule, it applies to most non-resident property owners selling in the UK.</p>
+  <h3>Rebasing</h3>
+  <p>For most non-residents, the gain is calculated from the property's market value on <strong>5 April 2015</strong> (or 5 April 2019 for non-residential property) rather than from your original purchase price — so only the growth since that rebasing date is generally taxable, not the full historic gain.</p>
+  <h3>The 60-day NRCGT return</h3>
+  <p>Every disposal must be reported to HMRC within 60 days of completion via an NRCGT return, whether or not any tax is actually due — this is a stricter filing obligation than for UK residents, who only need to report within 60 days if tax is owed.</p>
+  <h3>Leaving the UK mid-tax-year</h3>
+  <p>If you become non-resident partway through a tax year, split-year treatment may apply, meaning different rules can apply to gains made before and after your departure date — this is genuinely case-specific and worth checking with an adviser rather than assuming standard rates apply to the whole year.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/guidance/capital-gains-tax-for-non-residents, gov.uk/government/publications/capital-gains-tax-for-non-residents · Deterministic calculation — no AI, no arbitrary estimation',
+    constantsRows: `
+      <tr><td>Annual exempt amount</td><td>£3,000</td><td>gov.uk/capital-gains-tax/rates, 2026/27</td></tr>
+      <tr><td>Basic rate band upper limit</td><td>£50,270 taxable income</td><td>gov.uk Income Tax rates 2026/27</td></tr>
+      <tr><td>CGT basic / higher rate</td><td>18% / 24%</td><td>gov.uk/capital-gains-tax/rates</td></tr>
+      <tr><td>Rebasing date (residential)</td><td>5 April 2015</td><td>gov.uk CGT for non-residents guidance</td></tr>
+      <tr><td>NRCGT return deadline</td><td>60 days from completion, tax due or not</td><td>gov.uk CGT for non-residents guidance</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Rebased gain —</span><br>
+      <span style="color:#7dd3fc;">gain</span> = sale_price − value_at_5_april_2015<br>
+      <span style="color:#7dd3fc;">taxable_gain</span> = max(0, gain − £3,000)<br><br>
+      <span style="color:#86efac;">— Rate band —</span><br>
+      <span style="color:#7dd3fc;">basic_band_remaining</span> = max(0, £50,270 − other_uk_taxable_income)<br>
+      <span style="color:#7dd3fc;">cgt</span> = min(taxable_gain, basic_band_remaining) × 18% + rest × 24%`,
+    note: 'Assumes standard rebasing applies (the default method); an alternative time-apportionment or full-gain method can sometimes give a better result and is an election, not automatic. Always confirm your own position with HMRC or a qualified adviser.'
+  }),
+  faqs: [
+    { q: 'Do non-residents pay Capital Gains Tax on UK property?', a: 'Yes — since April 2015 for residential property (April 2019 for all UK property and land), non-UK residents are within the scope of UK CGT on disposals of UK property and land, with their own reporting rules.' },
+    { q: 'What is the NRCGT return and when is it due?', a: 'A return non-residents must file within 60 days of completing a UK property/land disposal, regardless of whether any tax is actually due — the filing deadline is separate from the tax payment deadline.' },
+    { q: 'What is rebasing for non-resident CGT?', a: 'Instead of using your original purchase price, most non-residents calculate their gain from the property\'s market value on 5 April 2015 (residential) or 5 April 2019 (other UK property) — so only growth since that date is generally taxed.' },
+    { q: 'What happens to my CGT position if I emigrate partway through a tax year?', a: 'Split-year treatment may apply, meaning gains before and after your departure date can be treated differently — this depends on your specific circumstances and is worth checking with a cross-border tax adviser rather than assuming one flat treatment for the whole year.' }
+  ]
+});
+
+// 12. Relief eligibility checker — decision-tree diagnostic, indicative only
+PAGES.push({
+  slug: 'capital-gains-tax-relief-checker-uk',
+  title: 'Capital Gains Tax Relief Checker',
+  metaTitle: 'CGT Relief Checker UK 2026/27 — PRR, BADR, Hold-Over, Spousal Transfer',
+  metaDesc: 'Answer 3 questions to see which UK Capital Gains Tax relief might apply to your disposal — Private Residence Relief, BADR, Gift Hold-Over Relief or spousal transfer.',
+  h1: 'Capital Gains Tax Relief Checker',
+  intro: 'Answer a few questions to see which relief might apply — an indicative pointer, not a determination.',
+  avatarInitials: 'RC',
+  ctaSnippet: CTA_ACCOUNTANT_COMBINED,
+  toolHtml: `
+  <div class="input-group">
+    <label>What are you disposing of?</label>
+    <select id="assetType">
+      <option value="home">My only or main home</option>
+      <option value="business">A business, or shares in my trading company</option>
+      <option value="other">Something else (second property, general shares, personal possessions)</option>
+    </select>
+  </div>
+  <div class="input-group">
+    <label>Who is it going to?</label>
+    <select id="transferType">
+      <option value="arms-length">Sold at arm's length to an unconnected buyer</option>
+      <option value="spouse">Transferred to my spouse or civil partner</option>
+      <option value="connected">Gifted, or sold below market value, to a connected person (e.g. child, relative, trust)</option>
+    </select>
+  </div>
+  <div class="input-group" id="homeQ" style="display:none;">
+    <label>Did you live in it as your only/main home for the whole time you owned it?</label>
+    <select id="homeWholePeriod">
+      <option value="yes">Yes, the whole period (or with only permitted absences)</option>
+      <option value="no">No — I let it out, or lived elsewhere for part of the time</option>
+    </select>
+  </div>
+  <div class="input-group" id="bizQ" style="display:none;">
+    <label>Have you owned it and (if a company) held at least 5% of shares/voting rights for 2+ years?</label>
+    <select id="bizConditions">
+      <option value="yes">Yes, both conditions met</option>
+      <option value="no">No, or not sure</option>
+    </select>
+  </div>
+  <button class="btn" onclick="calculate()">Check Which Relief Might Apply →</button>
+  <div class="results" id="results">
+    <div class="result-hero"><div class="value" id="r-relief" style="font-size:1.5rem;">—</div><div class="label">Possible Relief</div></div>
+    <div class="band-breakdown"><div id="r-explain" style="padding:8px 0;font-weight:400;text-align:left;">—</div></div>
+    <div class="callout"><strong>Indicative only, not a determination.</strong> Real eligibility has edge cases this checker doesn't model — lettings relief remnants and deemed-occupation periods for Private Residence Relief, and the trading-company and ownership-period tests for Business Asset Disposal Relief in particular. Confirm your actual position with HMRC or a qualified adviser before relying on any relief.</div>
+  </div>`,
+  toolJs: `
+document.getElementById('assetType').addEventListener('change', toggleQuestions);
+document.getElementById('transferType').addEventListener('change', toggleQuestions);
+function toggleQuestions(){
+  const asset=document.getElementById('assetType').value;
+  document.getElementById('homeQ').style.display = asset==='home' ? 'block' : 'none';
+  document.getElementById('bizQ').style.display = asset==='business' ? 'block' : 'none';
+}
+function calculate(){
+  const asset=document.getElementById('assetType').value;
+  const transfer=document.getElementById('transferType').value;
+  const homeWhole=document.getElementById('homeWholePeriod').value;
+  const bizOk=document.getElementById('bizConditions').value;
+  let relief='No specific relief identified', explain='Standard CGT rates likely apply — 18% within your remaining basic rate band, 24% above it, after the £3,000 annual exempt amount. Use the <a href="/">main calculator</a> to estimate what you\\'d owe.';
+  if(transfer==='spouse'){
+    relief='No-gain/no-loss spousal transfer';
+    explain='Transfers between spouses/civil partners are generally treated as no-gain/no-loss — no CGT arises on the transfer itself. See the <a href="/capital-gains-tax-divorce-separation-uk/">divorce &amp; separation page</a> if you\\'re separating rather than living together.';
+  } else if(asset==='home' && homeWhole==='yes'){
+    relief='Private Residence Relief (full)';
+    explain='If it genuinely was your only or main home for the whole period of ownership, the gain is likely fully exempt from CGT under Private Residence Relief — check gov.uk for the permitted-absence rules that still count as qualifying occupation.';
+  } else if(asset==='home' && homeWhole==='no'){
+    relief='Private Residence Relief (partial)';
+    explain='Partial relief may apply for the period it was genuinely your main home, plus the final 9 months of ownership regardless of use — the rest of the gain is chargeable. See the <a href="/property-capital-gains-tax-calculator/">property CGT calculator</a> to estimate the chargeable portion.';
+  } else if(asset==='business' && bizOk==='yes' && transfer!=='connected'){
+    relief='Business Asset Disposal Relief (BADR)';
+    explain='If the trading-company and 2-year ownership/shareholding tests are genuinely met, gains may qualify for the reduced 18% BADR rate, up to a £1 million lifetime limit. Use the <a href="/">main calculator</a> with the BADR option to estimate the amount.';
+  } else if(transfer==='connected'){
+    relief='Possible Gift Hold-Over Relief (business/trust gifts only)';
+    explain='Gifts (or below-market sales) to a connected person are treated as a disposal at market value. If this is a business, agricultural, or certain trust asset, Gift Hold-Over Relief may let you defer the gain rather than pay now. See the <a href="/capital-gains-tax-on-gifted-property-uk/">gifted property page</a> — Hold-Over Relief does not apply to an ordinary gift of a home or personal possessions.';
+  }
+  document.getElementById('r-relief').textContent=relief;
+  document.getElementById('r-explain').innerHTML=explain;
+  document.getElementById('results').classList.add('show');
+}
+toggleQuestions();`,
+  extraContent: `
+  <h2>Reliefs This Checker Considers</h2>
+  <div class="table-wrap"><table><tr><th>Relief</th><th>Broad effect</th><th>Typical qualifying situation</th></tr>
+  <tr><td>Private Residence Relief (PRR)</td><td>Full or partial CGT exemption</td><td>Selling your only or main home</td></tr>
+  <tr><td>Business Asset Disposal Relief (BADR)</td><td>Reduces rate to 18%, £1m lifetime limit</td><td>Selling a business or trading-company shares you've held 2+ years</td></tr>
+  <tr><td>Gift Hold-Over Relief</td><td>Defers the gain to the recipient</td><td>Gifting business, agricultural, or certain trust assets</td></tr>
+  <tr><td>Spousal no-gain/no-loss transfer</td><td>No CGT on the transfer itself</td><td>Transferring assets to a spouse or civil partner</td></tr>
+  </table></div>
+  <p>This tool is a starting point for which of these to investigate further — not a substitute for checking the detailed conditions on gov.uk or with a qualified adviser. Several reliefs have qualifying tests (ownership period, trading status, occupation history) with genuine edge cases that 3 questions can't capture.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/tax-sell-property, gov.uk/business-asset-disposal-relief, gov.uk/hold-over-relief-gifts-hmrc, gov.uk/capital-gains-tax/gifts · Decision logic, not a numeric formula — reliefs are conditional, not calculated',
+    constantsRows: `
+      <tr><td>Private Residence Relief</td><td>Full/partial exemption</td><td>gov.uk/tax-sell-property</td></tr>
+      <tr><td>BADR rate &amp; limit</td><td>18%, £1m lifetime</td><td>gov.uk/business-asset-disposal-relief</td></tr>
+      <tr><td>BADR ownership/shareholding test</td><td>2+ years, 5%+ shares/voting rights if a company</td><td>gov.uk/business-asset-disposal-relief</td></tr>
+      <tr><td>Gift Hold-Over Relief scope</td><td>Business/agricultural assets, certain trust transfers</td><td>gov.uk/hold-over-relief-gifts-hmrc</td></tr>
+      <tr><td>Spousal transfer</td><td>No-gain/no-loss</td><td>gov.uk/capital-gains-tax/gifts</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Decision order —</span><br>
+      <span style="color:#7dd3fc;">if</span> transfer == spouse/civil_partner → no-gain/no-loss<br>
+      <span style="color:#7dd3fc;">else if</span> asset == home <span style="color:#7dd3fc;">and</span> occupied_whole_period → PRR (full)<br>
+      <span style="color:#7dd3fc;">else if</span> asset == home <span style="color:#7dd3fc;">and not</span> occupied_whole_period → PRR (partial)<br>
+      <span style="color:#7dd3fc;">else if</span> asset == business <span style="color:#7dd3fc;">and</span> ownership_test_met <span style="color:#7dd3fc;">and not</span> connected_transfer → BADR possible<br>
+      <span style="color:#7dd3fc;">else if</span> transfer == connected_person → Gift Hold-Over Relief possible (business/trust only)<br>
+      <span style="color:#7dd3fc;">else</span> → no specific relief identified, standard rates`,
+    note: 'This is a simplified decision tree covering the most common qualifying pattern for each relief, not the full HMRC eligibility test — always confirm your own position with HMRC or a qualified adviser before relying on any relief.'
+  }),
+  faqs: [
+    { q: 'Is this relief checker a definitive answer?', a: 'No — it\'s an indicative starting point based on 3 simplified questions. Real eligibility for each relief has additional conditions (occupation history, trading status, ownership structure) that this tool doesn\'t fully test. Confirm your actual position with HMRC or a qualified adviser.' },
+    { q: 'What is Private Residence Relief?', a: 'Relief that exempts some or all of the gain on selling your only or main home from CGT, based on how much of your ownership period it was genuinely your main residence (plus certain permitted absences and the final 9 months of ownership).' },
+    { q: 'What is Business Asset Disposal Relief?', a: 'A reduced 18% CGT rate (from a possible 24%) on qualifying gains from selling a business or trading-company shares, up to a £1 million lifetime limit, subject to ownership-period and shareholding tests.' },
+    { q: 'Can I claim more than one relief?', a: 'Sometimes — for example PRR and lettings relief remnants can interact, or Hold-Over Relief can apply to part of a mixed-use gift. Overlapping reliefs are exactly the kind of edge case this simple checker flags for you to investigate further rather than resolves.' }
+  ]
+});
+
+// 13. Accountant comparison — real content home for the accountant CTA family
+PAGES.push({
+  slug: 'compare-online-accountants-for-cgt-uk',
+  title: 'Compare Online Accountants for CGT',
+  metaTitle: 'Compare Online Accountants for CGT UK 2026/27 — Fixed-Fee vs Full Service',
+  metaDesc: 'Fixed-fee online accountant, full-service accountant, or DIY? Compare options for filing UK Capital Gains Tax, with what to check before you choose.',
+  h1: 'Compare Online Accountants for CGT',
+  intro: 'Estimating your CGT is one thing — filing it correctly is another. Here\'s how to choose who does that part.',
+  avatarInitials: 'AC',
+  ctaSnippet: CTA_ACCOUNTANT_COMBINED,
+  toolHtml: `
+  <div class="input-group">
+    <label>How many disposals do you need to report this tax year?</label>
+    <select id="disposals">
+      <option value="one">Just one (e.g. one property or one shareholding)</option>
+      <option value="few">A few, possibly mixed types (property + shares, etc.)</option>
+      <option value="many">Several, including multiple trades or business assets</option>
+    </select>
+  </div>
+  <div class="input-group">
+    <label>How confident are you filing it yourself?</label>
+    <select id="confidence">
+      <option value="confident">Comfortable — I just want the numbers checked</option>
+      <option value="unsure">Not sure — I'd rather someone else handled it</option>
+    </select>
+  </div>
+  <button class="btn" onclick="calculate()">Get a Recommendation →</button>
+  <div class="results" id="results">
+    <div class="result-hero"><div class="value" id="r-rec" style="font-size:1.4rem;">—</div><div class="label">Likely Fit</div></div>
+    <div class="band-breakdown"><div id="r-explain" style="padding:8px 0;font-weight:400;text-align:left;">—</div></div>
+  </div>`,
+  toolJs: `
+function calculate(){
+  const disposals=document.getElementById('disposals').value;
+  const confidence=document.getElementById('confidence').value;
+  let rec='DIY via Self Assessment', explain='A single, straightforward disposal is usually manageable yourself using HMRC\\'s CGT on UK property account or your Self Assessment return, with this site\\'s calculators to check the numbers first.';
+  if(disposals==='many' || confidence==='unsure' && disposals!=='one'){
+    rec='Full-service accountant';
+    explain='Multiple disposals, business assets, or general uncertainty about filing usually justifies a full-service accountant who can also advise on reliefs and timing, not just calculate a number.';
+  } else if(disposals!=='one' || confidence==='unsure'){
+    rec='Fixed-fee online accountant';
+    explain='A fixed-fee online accountant is a middle ground — cheaper and faster than a traditional full-service firm, but still handles the actual HMRC filing for you, which matters once there\\'s more than one disposal or you\\'re not fully confident doing it yourself.';
+  }
+  document.getElementById('r-rec').textContent=rec;
+  document.getElementById('r-explain').innerHTML=explain;
+  document.getElementById('results').classList.add('show');
+}`,
+  extraContent: `
+  <h2>DIY vs Fixed-Fee Online Accountant vs Full-Service Accountant</h2>
+  <div class="table-wrap"><table><tr><th>Option</th><th>Best for</th><th>What you get</th></tr>
+  <tr><td>DIY (HMRC's own services)</td><td>One simple disposal, confident filing yourself</td><td>You calculate and file directly via the CGT on UK property account or Self Assessment — free, but no second opinion</td></tr>
+  <tr><td>Fixed-fee online accountant</td><td>A few disposals, mixed asset types, want it filed correctly without a full engagement</td><td>Fixed, known-upfront price; they calculate and file the return; usually online-only with limited advisory scope</td></tr>
+  <tr><td>Full-service accountant</td><td>Multiple/complex disposals, business assets, ongoing tax planning</td><td>Advice on reliefs and timing as well as filing; typically your regular accountant, priced per engagement or on retainer</td></tr>
+  </table></div>
+  <h3>What to check before choosing one</h3>
+  <ul>
+    <li><strong>Is CGT filing actually included</strong>, or is it an add-on to a general Self Assessment fee?</li>
+    <li><strong>Do they handle the 60-day property return specifically</strong>, not just the annual Self Assessment — some fixed-fee services only cover one or the other.</li>
+    <li><strong>Are they regulated</strong> — check for membership of a recognised body (ICAEW, ACCA, ATT, CIOT) via their public register, not just a claim on the accountant's own site.</li>
+    <li><strong>What happens if HMRC queries the return</strong> — is follow-up support included in the fee, or charged separately?</li>
+  </ul>
+  <p>Typical fixed-fee online CGT filing services are priced per disposal or per return rather than as a percentage of the gain — always get the exact figure for your situation before instructing anyone, since ranges advertised publicly can be a starting "from" price rather than the full cost.</p>`,
+  formulaBox: formulaSection({
+    source: 'Source: gov.uk/capital-gains-tax, ICAEW/ACCA/ATT/CIOT public registers · Decision logic, not a numeric formula',
+    constantsRows: `
+      <tr><td>60-day property return</td><td>Separate from annual Self Assessment</td><td>gov.uk/report-and-pay-your-capital-gains-tax</td></tr>
+      <tr><td>Self Assessment CGT deadline</td><td>31 January following the tax year</td><td>gov.uk/self-assessment-tax-returns/deadlines</td></tr>
+      <tr><td>Recognised accountancy bodies</td><td>ICAEW, ACCA, ATT, CIOT</td><td>Each body's public member register</td></tr>`,
+    formulaLines: `
+      <span style="color:#86efac;">— Recommendation logic —</span><br>
+      <span style="color:#7dd3fc;">if</span> disposals == one <span style="color:#7dd3fc;">and</span> confident → DIY via Self Assessment<br>
+      <span style="color:#7dd3fc;">else if</span> disposals == many <span style="color:#7dd3fc;">or</span> (unsure <span style="color:#7dd3fc;">and</span> disposals != one) → full-service accountant<br>
+      <span style="color:#7dd3fc;">else</span> → fixed-fee online accountant`,
+    note: 'A simplified pointer based on 2 questions — actual choice should also weigh cost, whether business assets are involved, and your own comfort with HMRC filing. Always verify an accountant\'s regulation status directly on their professional body\'s register.'
+  }),
+  faqs: [
+    { q: 'Do I need an accountant to file Capital Gains Tax?', a: 'No — for a single straightforward disposal, HMRC\'s own CGT on UK property account or Self Assessment return lets you file directly. An accountant becomes more valuable as disposals multiply, asset types mix, or you\'re unsure about reliefs.' },
+    { q: 'What\'s the difference between a fixed-fee online accountant and a full-service accountant?', a: 'A fixed-fee online accountant typically offers a known-upfront price for calculating and filing a specific return, often with limited advisory scope. A full-service accountant usually also advises on reliefs, timing and wider tax planning, priced per engagement or retainer.' },
+    { q: 'How do I check if an online accountant is properly regulated?', a: 'Search the public member register of a recognised UK accountancy body — ICAEW, ACCA, ATT or CIOT — directly on that body\'s own website, rather than relying on a badge or claim shown on the accountant\'s own site.' },
+    { q: 'Does a fixed-fee accountant handle the 60-day property CGT return?', a: 'Not always — some fixed-fee services cover only the annual Self Assessment return, not the separate 60-day UK property CGT return. Confirm this specifically before instructing anyone if you\'ve sold property.' }
   ]
 });
 
