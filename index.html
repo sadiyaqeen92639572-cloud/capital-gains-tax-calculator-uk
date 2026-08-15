@@ -212,7 +212,21 @@
 
 <div class="content">
   <h2>Explore More Capital Gains Tax Calculators</h2>
-  <div class="sat-grid" id="satGrid"></div>
+  <div class="sat-grid" id="satGrid">
+    <a class="sat-link" href="/combined-capital-gains-tax-calculator/"><div class="t">Combined CGT Calculator</div><div class="d">Multiple asset types, one £3,000 allowance</div></a>
+    <a class="sat-link" href="/property-capital-gains-tax-calculator/"><div class="t">Property CGT Calculator</div><div class="d">60-day HMRC deadline, buy-to-let</div></a>
+    <a class="sat-link" href="/shares-capital-gains-tax-calculator/"><div class="t">Shares CGT Calculator</div><div class="d">Single-disposal quick estimate</div></a>
+    <a class="sat-link" href="/crypto-capital-gains-tax-calculator/"><div class="t">Crypto CGT Calculator</div><div class="d">Disposals, swaps, Self Assessment</div></a>
+    <a class="sat-link" href="/capital-gains-tax-allowance-calculator/"><div class="t">CGT Allowance Calculator</div><div class="d">£3,000 annual exempt amount</div></a>
+    <a class="sat-link" href="/how-to-avoid-capital-gains-tax-uk/"><div class="t">How to Reduce CGT Legally</div><div class="d">ISA, spousal transfer, timing</div></a>
+    <a class="sat-link" href="/capital-gains-tax-rates-uk/"><div class="t">CGT Rates &amp; Percentage</div><div class="d">Full 2026/27 rate reference</div></a>
+    <a class="sat-link" href="/capital-gains-tax-on-gifted-property-uk/"><div class="t">CGT on Gifted Property</div><div class="d">Gifting to family, Hold-Over Relief</div></a>
+    <a class="sat-link" href="/capital-gains-tax-divorce-separation-uk/"><div class="t">CGT in Divorce &amp; Separation</div><div class="d">No-gain/no-loss window, deadlines</div></a>
+    <a class="sat-link" href="/capital-gains-tax-inherited-property-uk/"><div class="t">CGT on Inherited Property</div><div class="d">Probate value as your base cost</div></a>
+    <a class="sat-link" href="/capital-gains-tax-non-resident-uk/"><div class="t">CGT for Non-Residents</div><div class="d">NRCGT return, mid-year emigration</div></a>
+    <a class="sat-link" href="/capital-gains-tax-relief-checker-uk/"><div class="t">CGT Relief Checker</div><div class="d">Which relief might apply — PRR, BADR, Hold-Over</div></a>
+    <a class="sat-link" href="/compare-online-accountants-for-cgt-uk/"><div class="t">Compare Online Accountants</div><div class="d">Fixed-fee vs full accountant vs DIY</div></a>
+  </div>
 
   <h2>How Capital Gains Tax Works in the UK</h2>
   <p>Capital Gains Tax (CGT) is charged on the <strong>profit</strong> you make when you sell or dispose of an asset that's increased in value — not on the total sale amount. Every UK taxpayer has a £3,000 annual tax-free allowance (the "annual exempt amount") for 2026/27; only gains above that are taxable.</p>
@@ -267,8 +281,7 @@
       <li><strong>Inherited or gifted assets:</strong> your acquisition cost for CGT purposes isn't always what you think — get the base cost confirmed.</li>
     </ul>
     <p>A fixed-fee online accountant can handle the HMRC property return and your wider Self Assessment together.</p>
-    <!-- TODO(affiliate): replace with real accountant-comparison affiliate URL before deploy. -->
-    <a href="#" class="cta-btn" target="_blank" rel="noopener">Compare Online Accountants →</a>
+    <a href="/compare-online-accountants-for-cgt-uk/" class="cta-btn">Compare Online Accountants →</a>
   </div>
 
   <div class="eeat-section">
@@ -361,19 +374,6 @@ function calculate() {
   document.getElementById('cryptoCallout').classList.toggle('show', asset === 'crypto');
   document.getElementById('results').classList.add('show');
 }
-
-const SATELLITES_NAV = [
-  { slug: 'combined-capital-gains-tax-calculator', title: 'Combined CGT Calculator', desc: 'Multiple asset types, one £3,000 allowance' },
-  { slug: 'property-capital-gains-tax-calculator', title: 'Property CGT Calculator', desc: '60-day HMRC deadline, buy-to-let' },
-  { slug: 'shares-capital-gains-tax-calculator', title: 'Shares CGT Calculator', desc: 'Single-disposal quick estimate' },
-  { slug: 'crypto-capital-gains-tax-calculator', title: 'Crypto CGT Calculator', desc: 'Disposals, swaps, Self Assessment' },
-  { slug: 'capital-gains-tax-allowance-calculator', title: 'CGT Allowance Calculator', desc: '£3,000 annual exempt amount' },
-  { slug: 'how-to-avoid-capital-gains-tax-uk', title: 'How to Reduce CGT Legally', desc: 'ISA, spousal transfer, timing' },
-  { slug: 'capital-gains-tax-rates-uk', title: 'CGT Rates &amp; Percentage', desc: 'Full 2026/27 rate reference' }
-];
-document.getElementById('satGrid').innerHTML = SATELLITES_NAV.map(s =>
-  `<a class="sat-link" href="/${s.slug}/"><div class="t">${s.title}</div><div class="d">${s.desc}</div></a>`
-).join('');
 
 calculate();
 </script>
