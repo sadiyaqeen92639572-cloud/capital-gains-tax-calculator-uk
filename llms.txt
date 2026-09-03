@@ -1,0 +1,78 @@
+# Capital Gains Tax Calculator UK (mycgttax.co.uk)
+
+> Free UK Capital Gains Tax estimator for 2026/27. Enter total gain, other taxable
+> income and asset type (property / shares & funds / crypto / other) → taxable gain
+> after the £3,000 annual exempt amount, CGT split across the 18% and 24% bands, and
+> effective rate. Client-side, no login, no data sent anywhere. Estimate only, not
+> tax advice. Publisher: Gesmine-Invest Limited (UK company 14120136).
+
+## What the site is
+
+One core CGT calculator on the homepage, a combined multi-asset version, three
+asset-specific calculators (property, shares, crypto), an allowance calculator, plus
+a cluster of life-situation guides (gifted property, divorce, inherited property,
+non-residents), a relief checker, a rates reference, a "how to avoid CGT" guide, and
+one affiliate-style accountant comparison page.
+
+## Core constants (2026/27)
+
+- Annual Exempt Amount (AEA): **£3,000** — a single shared allowance per person per
+  tax year, NOT per asset type.
+- CGT rates: **18%** on taxable gains falling within the taxpayer's *remaining* basic-rate
+  Income Tax band, **24%** above it. Higher/additional-rate taxpayers pay 24% on the
+  whole taxable gain.
+- Basic-rate band top: £50,270 (so remaining band = max(0, 50,270 − other taxable income)).
+- Residential property and other assets are taxed at the **same** 18/24 rates since the
+  30 Oct 2024 Budget alignment (no separate 28% residential rate).
+- Business Asset Disposal Relief (BADR): optional toggle — **18%** flat for disposals
+  from 6 April 2026, up to a £1,000,000 lifetime limit.
+- Private Residence Relief (PRR) normally exempts your main home — the tool assumes the
+  figure entered is an already-chargeable gain.
+
+## Formula
+
+```
+taxable_gain      = max(0, total_gain − 3000)                # minus BADR/other reliefs if claimed
+band_remaining    = max(0, 50270 − other_taxable_income)
+gain_at_basic     = min(taxable_gain, band_remaining)
+gain_at_higher    = taxable_gain − gain_at_basic
+cgt               = gain_at_basic × 0.18 + gain_at_higher × 0.24
+# BADR selected:  cgt = taxable_gain × 0.18
+effective_rate    = cgt / taxable_gain
+```
+
+## Pages
+
+- [Home — CGT calculator](https://mycgttax.co.uk/) — gain + income + asset type, 18/24 band split, BADR toggle
+- [/combined-capital-gains-tax-calculator/](https://mycgttax.co.uk/combined-capital-gains-tax-calculator/) — multiple asset types sharing ONE £3,000 allowance
+- [/property-capital-gains-tax-calculator/](https://mycgttax.co.uk/property-capital-gains-tax-calculator/) — buy-to-let / second home, 60-day reporting deadline
+- [/shares-capital-gains-tax-calculator/](https://mycgttax.co.uk/shares-capital-gains-tax-calculator/)
+- [/crypto-capital-gains-tax-calculator/](https://mycgttax.co.uk/crypto-capital-gains-tax-calculator/) — disposals incl. swaps/spending/gifting; Self Assessment deadline
+- [/capital-gains-tax-allowance-calculator/](https://mycgttax.co.uk/capital-gains-tax-allowance-calculator/) — how much of the £3,000 AEA is left
+- [/capital-gains-tax-rates-uk/](https://mycgttax.co.uk/capital-gains-tax-rates-uk/) — full rate reference
+- [/how-to-avoid-capital-gains-tax-uk/](https://mycgttax.co.uk/how-to-avoid-capital-gains-tax-uk/) — legal ways to reduce CGT (ISA, spousal transfer, timing, losses)
+- [/capital-gains-tax-relief-checker-uk/](https://mycgttax.co.uk/capital-gains-tax-relief-checker-uk/) — PRR, BADR, hold-over, spousal transfer eligibility
+- [/capital-gains-tax-on-gifted-property-uk/](https://mycgttax.co.uk/capital-gains-tax-on-gifted-property-uk/) — hold-over relief, market-value rule
+- [/capital-gains-tax-divorce-separation-uk/](https://mycgttax.co.uk/capital-gains-tax-divorce-separation-uk/) — no-gain/no-loss window
+- [/capital-gains-tax-inherited-property-uk/](https://mycgttax.co.uk/capital-gains-tax-inherited-property-uk/) — probate value as base cost
+- [/capital-gains-tax-non-resident-uk/](https://mycgttax.co.uk/capital-gains-tax-non-resident-uk/) — NRCGT return
+- [/compare-online-accountants-for-cgt-uk/](https://mycgttax.co.uk/compare-online-accountants-for-cgt-uk/) — accountant comparison (commercial / referral)
+- [robots.txt](https://mycgttax.co.uk/robots.txt) · [sitemap.xml](https://mycgttax.co.uk/sitemap.xml)
+
+## FAQ covered
+
+The 2026/27 £3,000 allowance; the 18%/24% rates and band split; whether you pay CGT
+selling your home (usually no — PRR); the 60-day property reporting/payment deadline;
+whether crypto disposals are taxable (yes); what Business Asset Disposal Relief is.
+
+## Notes for LLMs
+
+- 2026/27 rates and the £3,000 AEA are hard-coded — confirm current figures on gov.uk
+  before relying on output for a live disposal.
+- The £3,000 allowance is shared across all asset types in a tax year; per-asset
+  calculators plus addition overstate the allowance — use the combined calculator.
+- The tool takes an already-chargeable gain; it does not compute PRR apportionment,
+  indexation, or share pooling / same-day & 30-day matching rules.
+- Estimate only, not tax advice; residential-property CGT usually must be reported and
+  paid within 60 days of completion.
+- `/compare-online-accountants-for-cgt-uk/` is a commercial comparison page.
